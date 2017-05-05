@@ -2,7 +2,7 @@ var express = require('express')
 var app = express()
 var db = require('./database')
 var mongoUrl = 'mongodb://green_guard:green@ds153730.mlab.com:53730/green_guard'
-var listeningPort = 3000
+var listeningPort = process.env.PORT//3000
 
 
 app.use('/api/cameras', require('./routes/cameras'))
