@@ -1,13 +1,13 @@
 var express = require('express')
 var axios = require('axios')
-var logger = require('./../logger')
+var logger = require('./../serverUtils/logger')
 var router = express.Router()
 const bodyParser = require('body-parser')
 var multer  = require('multer')
 var upload = multer({ storage: multer.memoryStorage(), dest: 'uploads/' })
-var db = require('./../database')
+var db = require('./../serverUtils/database')
 var ObjectID = require('mongodb').ObjectID
-const utils = require('../serverUtils')
+const utils = require('../serverUtils/serverUtils')
 
 var axiosConfig = {
     headers: {'Content-Type': 'application/json'},
@@ -41,8 +41,8 @@ router.get('/getAll', (req, res) => {
 router.post('/newCamera', upload.array('file', 12), (req, res) => {
     logger.info('Adding new camera to camera pool')
 
-    var photoBase64 = req.files[0].buffer.toString('base64')
-    // var photoBase64 = req.body.picture
+    // var photoBase64 = req.files[0].buffer.toString('base64')
+    var photoBase64 = req.body.picture
     // var aaa = new Buffer(photoBase64, 'base64')
 
     utils.savePhotoBase64(photoBase64, (err, url) => {
@@ -58,7 +58,7 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
             }
 
             db.get().collection('cameras').insertOne(newCamera)
-            return res.status(200).send({message: `New camera added to pool\n ID - ${req.body.cameraID}`})
+            return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraID}`})
         }
     })
 })

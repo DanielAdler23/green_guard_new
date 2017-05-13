@@ -1,10 +1,10 @@
 var express = require('express')
-var logger = require('./../logger')
+var logger = require('./../serverUtils/logger')
 var router = express.Router()
 const bodyParser = require('body-parser')
-var db = require('./../database')
+var db = require('./../serverUtils/database')
 var ObjectID = require('mongodb').ObjectID
-const utils = require('../serverUtils')
+const utils = require('../serverUtils/serverUtils')
 var date = new Date()
 
 router.use(bodyParser.json({limit: '5mb'}))
@@ -18,8 +18,36 @@ router.use((req, res, next) => {
 
 router.get('/', (req, res) => {
     res.header('Content-Type', 'text/plain')
-    res.status(200).send('Welcome To The Green Guard System')
+    return res.status(200).send('Welcome To The Green Guard System')
 })
+
+
+router.post('/login', (req, res) => {
+    var email = req.body.email
+    var password = req.body.password
+
+    var users = db.get().collection('users')
+    users.findOne({'email': email}, (err, user) => {
+        // err ? res.status(404).send({error: err}) : res.status(200).send(doc)
+        if(err)
+            return res.status(404).send({error: err})
+        if(!user)
+            return res.status(404).send({error: 'There is no user with entered email'})
+        if(!user.password == password)
+            return res.status(404).send({error: "The password entered does not match user's password"})
+        else {
+            req.session.user = user
+            return res.status(200).send()
+        }
+    })
+})
+
+
+router.get('/dashboard', (req, res) => {
+    if(!req.session.user)
+        return res.status(401).send()
+})
+
 
 router.get('/getAll', (req, res) => {
     logger.info('All Users')
@@ -53,7 +81,7 @@ router.post('/addNewUser', (req, res) => {
     }
 
     db.get().collection('users').insertOne(newUser)
-    res.status(200).send({message: "User Added"})
+    return res.status(200).send({message: "User Added"})
 })
 
 
@@ -63,9 +91,9 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
 
     db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'userId': userId}}, (err, doc) => {
         if(err)
-            res.status(404).send({error: err})
+            return res.status(404).send({error: err})
         else
-            res.status(200).send({message: `Camera attached to user - ${userId}`})
+            return res.status(200).send({message: `Camera attached to user - ${userId}`})
     })
 })
 

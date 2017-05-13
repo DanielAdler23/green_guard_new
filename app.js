@@ -1,12 +1,20 @@
 var express = require('express')
 var app = express()
-var db = require('./database')
-var mongoUrl = 'mongodb://green_guard:green@ds153730.mlab.com:53730/green_guard'
-var listeningPort = process.env.PORT//3000
+var expressValidator = require('express-validator')
+var expressSession = require('express-session')
+var path = require('path')
+var db = require('./serverUtils/database')
+// var mongoUrl = 'mongodb://green_guard:green@ds153730.mlab.com:53730/green_guard'
+var mongoUrl = 'mongodb://greenguard:greenDBguard@ds137801.mlab.com:37801/green-guard'
+var listeningPort = 3000
 
 
 app.use('/api/cameras', require('./routes/cameras'))
 app.use('/api/users', require('./routes/users'))
+app.use(expressValidator())
+app.use(expressSession({secret: 'greenguard', resave: false, saveUninitialized: true}))
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 db.connect(mongoUrl, function(err) {
     if (err) {

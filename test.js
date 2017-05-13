@@ -1,4 +1,4 @@
-var logger = require('./logger')
+var logger = require('./serverUtils/logger')
 
 logger.info('yes yes yes yes')
 
