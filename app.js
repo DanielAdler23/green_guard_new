@@ -2,11 +2,12 @@ var express = require('express')
 var app = express()
 var expressValidator = require('express-validator')
 var expressSession = require('express-session')
+var logger = require('./serverUtils/logger')
 var path = require('path')
 var db = require('./serverUtils/database')
 // var mongoUrl = 'mongodb://green_guard:green@ds153730.mlab.com:53730/green_guard'
 var mongoUrl = 'mongodb://greenguard:greenDBguard@ds137801.mlab.com:37801/green-guard'
-var listeningPort = 3000
+var port = process.env.PORT || 8080
 
 
 app.use('/api/cameras', require('./routes/cameras'))
@@ -18,11 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 db.connect(mongoUrl, function(err) {
     if (err) {
-        console.log(`Unable to connect to mlab, ${err.message} code: ${err.code}`)
+        logger.info(`Unable to connect to mlab, ${err.message} code: ${err.code}`)
         process.exit(1)
     } else {
-        app.listen(listeningPort, function() {
-            console.log(`** Green Guard Server ** \nListening on port ${listeningPort}...`)
+        app.listen(port, function() {
+            logger.info(`** Green Guard Server ** - Listening on port ${port}...`)
         })
     }
 })
