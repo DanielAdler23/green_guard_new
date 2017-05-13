@@ -2,193 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9cb0e87-96d3-4171-9fdd-0c21d4ac90c6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/dist/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/dist/base64url.d.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/dist/base64url.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/dist/pad-string.d.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/dist/pad-string.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/typings/globals/node/index.d.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/typings/globals/node/typings.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/base64url/typings/index.d.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/.editorconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/.eslintrc.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/CONTRIBUTING.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/Makefile.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/config/package.schema.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/coverage.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/base.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/api-request-client.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/api-request-manager.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/api-request.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/box-client.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/box-node-sdk.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/box-sdk-node.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/event-stream.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/collaborations.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/collaborators.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/collections.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/comments.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/device-pins.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/enterprise.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/events.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/files.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/folders.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/groups.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/legal-hold-policies.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/metadata.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/retention-policies.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/search.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/shared-items.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/tasks.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/trash.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/users.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/web-links.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/managers/webhooks.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/sessions/anonymous-session.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/sessions/app-auth-session.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/sessions/basic-session.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/sessions/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/sessions/persistent-session.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/token-manager.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/config.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/errors.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/lazy-async-queue.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/paging-iterator.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/lib/util/url-path.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/prettify.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/prettify.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/sort-arrow-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/sorter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/util/config.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov-report/util/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/coverage/lcov.info" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/api-request-manager.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/api-request.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/box-client.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/box-node-sdk.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/event-stream.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/collaborations.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/collections.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/comments.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/device-pins.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/enterprise.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/events.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/files.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/folders.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/groups.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/legal-hold-policies.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/metadata.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/retention-policies.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/search.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/shared-items.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/tasks.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/trash.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/users.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/web-links.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/managers/webhooks.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/sessions/anonymous-session.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/sessions/app-auth-session.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/sessions/basic-session.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/sessions/persistent-session.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/token-manager.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/util/config.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/util/errors.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/util/lazy-async-queue.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/lib/util/url-path.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/box-node-sdk/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/src/ecdsa-sig-formatter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/src/param-bytes-for-alg.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/lib/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/http-status/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/is-plain-obj/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/is-plain-obj/license" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/is-plain-obj/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/is-plain-obj/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/.jshintrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/lib/JsonWebTokenError.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/lib/NotBeforeError.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/lib/TokenExpiredError.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/lib/timespan.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/async_sign.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/encoding.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/expiresInSeconds.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/expires_format.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/invalid_exp.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/invalid_pub.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/issue_147.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/issue_70.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/jwt.hs.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/jwt.rs.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/noTimestamp.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/non_object_values.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/priv.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/pub.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/rsa-private.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/rsa-public-key.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/rsa-public-key.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/rsa-public.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/set_headers.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/undefined_secretOrPublickey.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/util/fakeDate.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/verify.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jsonwebtoken/test/wrong_alg.tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jwa/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jwa/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jwa/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jwa/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jwa/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/.npmignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/CHANGELOG.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/lib/data-stream.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/lib/sign-stream.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/lib/tostring.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/lib/verify-stream.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/jws/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/merge-options/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/merge-options/license" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/merge-options/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules/merge-options/readme.md" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/cameras.js" afterPath="$PROJECT_DIR$/routes/cameras.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/users.js" afterPath="$PROJECT_DIR$/routes/users.js" />
     </list>
     <ignored path="green_guard_backend.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -211,31 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cameras.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cameras.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/cameras.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="93" column="49" selection-start-line="93" selection-start-column="49" selection-end-line="93" selection-end-column="49" />
+            <state relative-caret-position="900">
+              <caret line="94" column="49" selection-start-line="94" selection-start-column="49" selection-end-line="94" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serverUtils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/serverUtils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -244,8 +48,8 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+            <state relative-caret-position="510">
+              <caret line="34" column="87" selection-start-line="34" selection-start-column="87" selection-end-line="34" selection-end-column="87" />
               <folding />
             </state>
           </provider>
@@ -329,6 +133,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -349,12 +154,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../green_guard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
@@ -450,15 +254,16 @@
       <workItem from="1494181361852" duration="689000" />
       <workItem from="1494495092975" duration="527000" />
       <workItem from="1494675530310" duration="12000" />
+      <workItem from="1494675821208" duration="543000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5952000" />
+    <option name="totallyTimeSpent" value="6495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2149401" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -466,7 +271,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27985075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27985075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -511,14 +316,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serverUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -543,14 +340,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serverUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/serverUtils.js" />
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -575,14 +365,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serverUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/serverUtils.js" />
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -607,7 +390,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serverUtils.js">
+    <entry file="file://$PROJECT_DIR$/serverUtils.js" />
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cameras.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -615,6 +407,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/serverUtils.js" />
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -668,14 +469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -683,26 +476,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/serverUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/serverUtils.js" />
     <entry file="file://$PROJECT_DIR$/routes/cameras.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="93" column="49" selection-start-line="93" selection-start-column="49" selection-end-line="93" selection-end-column="49" />
+        <state relative-caret-position="900">
+          <caret line="94" column="49" selection-start-line="94" selection-start-column="49" selection-end-line="94" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="87" selection-start-line="34" selection-start-column="87" selection-end-line="34" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
