@@ -16,6 +16,10 @@ app.use(expressValidator())
 // app.use(expressSession({secret: 'greenguard', resave: false, saveUninitialized: true}))
 app.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, store: new MongoStore({url: mongoUrl})}))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use((req, res, next) => {
+    res.locals.session = req.session
+    next()
+})
 
 
 db.connect(mongoUrl, function(err) {

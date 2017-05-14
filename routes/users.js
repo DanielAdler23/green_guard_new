@@ -26,6 +26,8 @@ router.post('/login', (req, res) => {
     var email = req.body.email
     var password = req.body.password
 
+    logger.info(`login - ${email}`)
+
     var users = db.get().collection('users')
     users.findOne({'email': email}, (err, user) => {
         // err ? res.status(404).send({error: err}) : res.status(200).send(doc)
@@ -36,7 +38,7 @@ router.post('/login', (req, res) => {
         if(!user.password == password)
             return res.status(404).send({error: "The password entered does not match user's password"})
         else {
-            req.session.user = user
+            //req.session.user = user
             return res.status(200).send()
         }
     })

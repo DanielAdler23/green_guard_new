@@ -58,12 +58,12 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
                 'picture': url
             }
 
-            db.get().collection('cameras').insertOne(newCamera)//, (err, result) => {
-            //     if(err)
-            //         logger.error(`Could not insert new camera to database -${err}`)
-            //     logger.info(`New camera added to pool ID - ${req.body.cameraId}`)
+            db.get().collection('cameras').insertOne(newCamera, (err, result) => {
+                if(err)
+                    logger.error(`Could not insert new camera to database -${err}`)
+                logger.info(`New camera added to pool ID - ${req.body.cameraId}`)
                 return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraId}`})
-            //})
+            })
         }
     })
 })
