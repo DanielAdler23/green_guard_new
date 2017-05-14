@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer')
 var imgur = require('imgur')
 var clientId = imgur.getClientId()
 var logger = require('./logger')
-imgur.setCredentials('greenguardpro@gmail.com', 'nodImgur101', clientId)
+imgur.setCredentials('greenguardpro@gmail.com', 'nodGreen1', clientId)
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
