@@ -1,29 +1,30 @@
 var express = require('express')
 var app = express()
 var expressValidator = require('express-validator')
-var expressSession = require('express-session')
-var logger = require('./serverUtils/logger')
+var session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 var path = require('path')
 var db = require('./serverUtils/database')
 // var mongoUrl = 'mongodb://green_guard:green@ds153730.mlab.com:53730/green_guard'
 var mongoUrl = 'mongodb://greenguard:greenDBguard@ds137801.mlab.com:37801/green-guard'
-var port = process.env.PORT || 8080
+var port = process.env.PORT || 3000
 
 
 app.use('/api/cameras', require('./routes/cameras'))
 app.use('/api/users', require('./routes/users'))
 app.use(expressValidator())
-app.use(expressSession({secret: 'greenguard', resave: false, saveUninitialized: true}))
+// app.use(expressSession({secret: 'greenguard', resave: false, saveUninitialized: true}))
+app.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, store: new MongoStore({url: mongoUrl})}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 
 db.connect(mongoUrl, function(err) {
     if (err) {
-        logger.info(`Unable to connect to mlab, ${err.message} code: ${err.code}`)
+        console.log(`Unable to connect to mlab, ${err.message} code: ${err.code}`)
         process.exit(1)
     } else {
         app.listen(port, function() {
-            logger.info(`** Green Guard Server ** - Listening on port ${port}...`)
+            console.log(`** Green Guard Server ** \nListening on port ${port}...`)
         })
     }
 })

@@ -44,7 +44,7 @@ router.post('/login', (req, res) => {
 
 
 router.get('/dashboard', (req, res) => {
-    if(!req.session.user)
+    if(!req.session.user) r
         return res.status(401).send()
 })
 

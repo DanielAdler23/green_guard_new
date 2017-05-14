@@ -1,10 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8">
+
+  <title>Login</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/style.css">
+  <!--jquery-->
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!--Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+
 </head>
-<body>
+
+  <body class="align" ng-app="green">
+
+    <div class="grid" ng-controller="userCtrl">
+
+      <form class="form login">
+
+        <div class="form__field">
+          <label for="login__name"><span class="hidden">Name</span></label>
+          <input id="login__name" type="text" name="name" class="form__input" placeholder="Name" required ng-model="user.name">
+        </div>
+
+        <div class="form__field">
+          <label for="login__username"><span class="hidden">Username</span></label>
+          <input id="login__username" type="text" name="username" class="form__input" placeholder="Username" required ng-model="user.username">
+        </div>
+
+        <div class="form__field">
+          <label for="login__email"><span class="hidden">email</span></label>
+          <input id="login__email" type="email" name="email" class="form__input" placeholder="Email" required ng-model="user.email">
+        </div>
+
+        <div class="form__field">
+          <label for="login__password"><span class="hidden">Password</span></label>
+          <input id="login__password" type="password" name="password" class="form__input" placeholder="Password" required ng-model="user.password">
+        </div>
+
+        <div class="form__field">
+          <input type="submit" value="Register" ng-click="submit(user)">
+        </div>
+
+      </form>
+
+      <p class="text--center">member? <a href="index.html">Login</a></p>
+
+    </div>
+
+  </body>
+
+</html>
+
+
+<!--controller -->
+<script src="./js/controller.js"></script>
 
 </body>
 </html>

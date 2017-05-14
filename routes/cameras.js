@@ -41,14 +41,15 @@ router.get('/getAll', (req, res) => {
 router.post('/newCamera', upload.array('file', 12), (req, res) => {
     logger.info('Adding new camera to camera pool')
 
-    // var photoBase64 = req.files[0].buffer.toString('base64')
-    var photoBase64 = req.body.picture
+    var photoBase64 = req.files[0].buffer.toString('base64')
+    // var photoBase64 = req.body.picture
     // var aaa = new Buffer(photoBase64, 'base64')
 
     utils.savePhotoBase64(photoBase64, (err, url) => {
-        if(err)
+        if(err) {
+            logger.error(err)
             return res.status(404).send({error: `Failed to save camera's photo to image database`, error: err})
-        else {
+        } else {
             var newCamera = {
                 'id': req.body.cameraId,
                 'ip': req.body.ip,
@@ -57,8 +58,12 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
                 'picture': url
             }
 
-            db.get().collection('cameras').insertOne(newCamera)
-            return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraID}`})
+            db.get().collection('cameras').insertOne(newCamera, (err, result) => {
+                if(err)
+                    logger.error(`Could not insert new camera to database -${err}`)
+                logger.info(`New camera added to pool ID - ${req.body.cameraId}`)
+                return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraId}`})
+            })
         }
     })
 })
