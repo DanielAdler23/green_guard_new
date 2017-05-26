@@ -2,13 +2,17 @@ var express = require('express')
 var logger = require('./../serverUtils/logger')
 var router = express.Router()
 const bodyParser = require('body-parser')
+var session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 var db = require('./../serverUtils/database')
 var ObjectID = require('mongodb').ObjectID
 const utils = require('../serverUtils/serverUtils')
+var mongoUrl = 'mongodb://greenguard:greenDBguard@ds137801.mlab.com:37801/green-guard'
 var date = new Date()
 
 router.use(bodyParser.json({limit: '5mb'}))
 router.use(bodyParser.urlencoded({limit: '5mb', extended: true }))
+router.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, store: new MongoStore({url: mongoUrl})}))
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Content-Type', 'application/json')
@@ -38,7 +42,7 @@ router.post('/login', (req, res) => {
         if(!user.password == password)
             return res.status(404).send({error: "The password entered does not match user's password"})
         else {
-            //req.session.user = user
+            req.session.user = user
             return res.status(200).send()
         }
     })
