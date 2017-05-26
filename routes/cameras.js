@@ -3,11 +3,14 @@ var axios = require('axios')
 var logger = require('./../serverUtils/logger')
 var router = express.Router()
 const bodyParser = require('body-parser')
+var session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 var multer  = require('multer')
 var upload = multer({ storage: multer.memoryStorage(), dest: 'uploads/' })
 var db = require('./../serverUtils/database')
 var ObjectID = require('mongodb').ObjectID
 const utils = require('../serverUtils/serverUtils')
+var mongoUrl = 'mongodb://greenguard:greenDBguard@ds137801.mlab.com:37801/green-guard'
 
 var axiosConfig = {
     headers: {'Content-Type': 'application/json'},
@@ -17,6 +20,7 @@ var axiosConfig = {
 
 router.use(bodyParser.json({limit: '5mb'}))
 router.use(bodyParser.urlencoded({limit: '5mb', extended: true }))
+router.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, store: new MongoStore({url: mongoUrl})}))
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Content-Type', 'application/json')

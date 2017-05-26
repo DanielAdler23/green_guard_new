@@ -42,15 +42,15 @@ router.post('/login', (req, res) => {
         if(!user.password == password)
             return res.status(404).send({error: "The password entered does not match user's password"})
         else {
-            req.session.user = user
-            return res.status(200).send()
+            res.cookie('userId','asdasda', { maxAge: 900000, httpOnly: true });
+            return res.status(200).send('dfghjkl;')
         }
     })
 })
 
 
 router.get('/dashboard', (req, res) => {
-    if(!req.session.user) r
+    if(!req.session.user)
         return res.status(401).send()
 })
 
@@ -63,16 +63,16 @@ router.get('/getAll', (req, res) => {
     })
 })
 
-router.get('/:userId', (req, res) => {
-    logger.info(`Getting User - ${req.params.userId}`)
-    var userId = req.params.userId
-    var objectId = new ObjectID(userId)
-
-    var users = db.get().collection('users')
-    users.findOne({'_id': objectId}, (err, doc) => {
-        err ? res.status(404).send({error: err}) : res.status(200).send(doc)
-    })
-})
+// router.get('/:userId', (req, res) => {
+//     logger.info(`Getting User - ${req.params.userId}`)
+//     var userId = req.params.userId
+//     var objectId = new ObjectID(userId)
+//
+//     var users = db.get().collection('users')
+//     users.findOne({'_id': objectId}, (err, doc) => {
+//         err ? res.status(404).send({error: err}) : res.status(200).send(doc)
+//     })
+// })
 
 router.post('/addNewUser', (req, res) => {
     logger.info('Inserting New User To Database')
