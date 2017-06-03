@@ -82,9 +82,10 @@ var green = angular.module('green', ['ngCookies']);
 
 
 green.controller('userCtrl', ['$scope','$cookies',
-    function($scope,$cookies){
-        $scope.submit = function(user){
-            console.log(user);
+
+    function($scope, $cookies) {
+        $scope.submit = function(user) {
+            console.log('Adding new user');
             $.ajax({
                 type: "POST",
                 url: "https://green-guard.herokuapp.com/api/users/addNewUser",
@@ -95,7 +96,24 @@ green.controller('userCtrl', ['$scope','$cookies',
                 }
             });
         };
-    }]);
+
+        $scope.login = function(user) {
+            console.log('Login');
+            $.ajax({
+                type: "POST",
+                url: "https://green-guard.herokuapp.com/api/users/login",
+                data: user,
+                cache: false,
+                success: function() {
+                    console.log("Form Data Sent successfully");
+                }
+            });
+        }
+    }
+]);
+
+
+
 green.controller('getCameras',['$scope','$cookies',
     function($scope,$cookies){
         $scope.getAllCamaras = function(){

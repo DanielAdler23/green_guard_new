@@ -137,6 +137,17 @@ input[type='submit'] {
 }
 
 /* index css */
+.logo_div {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.logo {
+    width: 30%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
 
 .login {
     color: #eee;

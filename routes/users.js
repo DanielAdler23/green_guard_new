@@ -43,7 +43,8 @@ router.post('/login', (req, res) => {
             return res.status(404).send({error: "The password entered does not match user's password"})
         else {
             res.cookie('userId','asdasda', { maxAge: 900000, httpOnly: true });
-            return res.status(200).send('dfghjkl;')
+            return res.redirect(201, '../pulic/home.html');
+            // return res.status(200).redirect('./home.html')
         }
     })
 })
@@ -86,8 +87,20 @@ router.post('/addNewUser', (req, res) => {
         joined: date.getTime()
     }
 
-    db.get().collection('users').insertOne(newUser)
-    return res.status(200).send({message: "User Added"})
+    db.get().collection('users').findOne({'email': newUser.email}, (err, doc) => {
+        if(err)
+            return res.status(404).send({error: err})
+        else if(doc)
+            return res.status(405).send({error: 'The email you entered is already registered'})
+        else {
+            db.get().collection('users').insertOne(newUser, (err, doc) => {
+                if(err)
+                    return res.status(404).send({error: err})
+                else if(doc.insertedCount == 1)
+                    return res.status(200).send({message: "User Added"})
+            })
+        }
+    })
 })
 
 
