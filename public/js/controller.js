@@ -109,7 +109,7 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
         $.ajax({
             type: "POST",
             //headers: { 'Content-Type': 'application/json' },
-            url: "http://localhost:3000/api/users/login",//"https://green-guard.herokuapp.com/api/users/login",
+            url: "https://green-guard.herokuapp.com/api/users/login",
             data: user,
             cache: false,
             success: function (data) {

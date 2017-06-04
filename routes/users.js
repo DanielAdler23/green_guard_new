@@ -41,7 +41,8 @@ router.post('/login', (req, res) => {
         else if(user.password != password)
             return res.status(406).send("The password entered does not match user's password")
         else {
-            res.cookie('userId','asdasda', { maxAge: 900000, httpOnly: true });
+            var objectId = new ObjectID(user._id);
+            res.cookie('userId', objectId, { maxAge: 900000, httpOnly: true });
             var data = JSON.stringify('http://localhost:3000/home.html')
             res.header('Content-Length', data.length);
             res.end(data);
@@ -107,12 +108,19 @@ router.post('/addNewUser', (req, res) => {
 router.post('/attachCameraToUser/:userId', (req,res) => {
     var userId = req.params.userId
     var cameraId = req.body.cameraId
+    var objectId = new ObjectID(userId);
 
-    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'userId': userId}}, (err, doc) => {
+
+    db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$set: {'cameraId': cameraId}}, (err, user) => {
         if(err)
             return res.status(404).send({error: err})
         else
-            return res.status(200).send({message: `Camera attached to user - ${userId}`})
+            db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'userId': userId}}, (err, doc) => {
+                if(err)
+                    return res.status(404).send({error: err})
+                else
+                    return res.status(200).send({message: `Camera attached to user - ${userId}`})
+            })
     })
 })
 
