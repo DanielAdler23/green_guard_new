@@ -22,7 +22,7 @@ router.use((req, res, next) => {
 
 router.get('/', (req, res) => {
     res.header('Content-Type', 'text/plain')
-    return res.status(200).send('Welcome To The Green Guard System')
+    return res.status(200).send('Welcome To The Green G uard System')
 })
 
 
@@ -34,17 +34,17 @@ router.post('/login', (req, res) => {
 
     var users = db.get().collection('users')
     users.findOne({'email': email}, (err, user) => {
-        // err ? res.status(404).send({error: err}) : res.status(200).send(doc)
         if(err)
             return res.status(404).send({error: err})
-        if(!user)
-            return res.status(404).send({error: 'There is no user with entered email'})
-        if(!user.password == password)
-            return res.status(404).send({error: "The password entered does not match user's password"})
+        else if(!user)
+            return res.status(405).send('There is no user with entered email')
+        else if(user.password != password)
+            return res.status(406).send("The password entered does not match user's password")
         else {
             res.cookie('userId','asdasda', { maxAge: 900000, httpOnly: true });
-            return res.redirect(201, '../pulic/home.html');
-            // return res.status(200).redirect('./home.html')
+            var data = JSON.stringify('http://localhost:3000/home.html')
+            res.header('Content-Length', data.length);
+            res.end(data);
         }
     })
 })

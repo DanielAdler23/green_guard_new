@@ -78,44 +78,63 @@ if (location.href.split("/").slice(-1) == "cameraPage.html"){
 
 }
 
-var green = angular.module('green', ['ngCookies']);
+
+var green = angular.module('green', ['ngCookies', 'ngFlash']);
 
 
-green.controller('userCtrl', ['$scope','$cookies',
+green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $cookies, Flash) {
 
-    function($scope, $cookies) {
-        $scope.submit = function(user) {
-            console.log('Adding new user');
-            $.ajax({
-                type: "POST",
-                url: "https://green-guard.herokuapp.com/api/users/addNewUser",
-                data: user,
-                cache: false,
-                success: function() {
-                    console.log("Form Data Sent successfully");
-                }
-            });
-        };
+    // var cookies = $cookies.getAll();
+    // angular.forEach(cookies, function (v, k) {
+    //     $cookies.remove(k);
+    // })
+    console.log($cookies.getAll())
 
-        $scope.login = function(user) {
-            console.log('Login');
-            $.ajax({
-                type: "POST",
-                url: "https://green-guard.herokuapp.com/api/users/login",
-                data: user,
-                cache: false,
-                success: function() {
-                    console.log("Form Data Sent successfully");
-                }
-            });
-        }
+    $scope.submit = function (user) {
+        console.log('Adding new user');
+        $.ajax({
+            type: "POST",
+            headers: {'Content-Type': 'application/json'},
+            url: "https://green-guard.herokuapp.com/api/users/addNewUser",
+            data: user,
+            cache: false,
+            success: function () {
+                console.log("Form Data Sent successfully");
+            }
+        });
+    };
+
+    $scope.login = function (user) {
+        console.log('Login');
+        $.ajax({
+            type: "POST",
+            //headers: { 'Content-Type': 'application/json' },
+            url: "http://localhost:3000/api/users/login",//"https://green-guard.herokuapp.com/api/users/login",
+            data: user,
+            cache: false,
+            success: function (data) {
+
+                console.log(data.error)
+
+                var id = Flash.create('info', 'HELLO', 0, {class: 'custom-class', id: 'custom-id'}, true)
+
+                window.location = data
+                console.log("Form Data Sent successfully");
+            },
+            error: function (error) {
+                console.log(error.responseText)
+                var id = Flash.create('info', error.responseText, 0, {class: 'custom-class', id: 'custom-id'}, true)
+            }
+        });
     }
-]);
+}]);
 
 
 
 green.controller('getCameras',['$scope','$cookies',
     function($scope,$cookies){
+        console.log($cookies.getAll())
+
         $scope.getAllCamaras = function(){
             $.ajax({
                 type: "GET",
