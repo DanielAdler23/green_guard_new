@@ -36,7 +36,15 @@ router.get('/', (req, res) => {
 
 router.get('/getAll', (req, res) => {
     logger.info('All Cameras')
-    var cameras = db.get().collection('cameras').find({}, {_id: 0}).toArray((err, docs) => {
+    db.get().collection('cameras').find({}, {_id: 0}).toArray((err, docs) => {
+        err ? res.status(404).send({error: err}) : res.status(200).send(docs)
+    })
+})
+
+
+router.get('/getFreeCameras', (req, res) => {
+    logger.info('All Free Cameras')
+    db.get().collection('cameras').find({userId: {$exists: false}}).toArray((err, docs) => {
         err ? res.status(404).send({error: err}) : res.status(200).send(docs)
     })
 })

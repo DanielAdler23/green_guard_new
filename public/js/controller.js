@@ -124,9 +124,27 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
 
 
 green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
-    $scope.cookie = $cookies.get('', 'userId');
 
-    console.log($scope.cookie)
+        $scope.getUsersCameras = function(){
+            $.ajax({
+                type: "GET",
+                url: "https://green-guard.herokuapp.com/api/cameras/getAll",
+                cache: false,
+                success: function(cameras) {
+                    $scope.cameras = cameras
+
+                    $('.nav-second-level').remove('.user-camera')
+
+                    for (camera of cameras) {
+                        $('.nav-second-level').append(
+                            '<li class="user-camera">'
+                            +'<a href ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
+                            '</il>' )
+                    }
+                }
+            });
+        };
+
 
         $scope.getAllCamaras = function(){
             $.ajax({
@@ -135,12 +153,13 @@ green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
                 cache: false,
                 success: function(cameras) {
                     $scope.cameras = cameras
-                    for (camera of cameras)
-                    {
-                        // console.log(camera)
+
+                    $('.nav-second-level').remove('.user-camera')
+
+                    for (camera of cameras) {
                         $('.nav-second-level').append(
-                            '<li>'
-                                +'<a href ng-click="getCamera('+camera.id+')">'+camera.id+'</a>'+
+                            '<li class="user-camera">'
+                                +'<a href ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
                             '</il>' )
                     }
                 }
