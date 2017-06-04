@@ -84,17 +84,10 @@ var green = angular.module('green', ['ngCookies', 'ngFlash']);
 
 green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $cookies, Flash) {
 
-    // var cookies = $cookies.getAll();
-    // angular.forEach(cookies, function (v, k) {
-    //     $cookies.remove(k);
-    // })
-    console.log($cookies.getAll())
-
     $scope.submit = function (user) {
         console.log('Adding new user');
         $.ajax({
             type: "POST",
-            headers: {'Content-Type': 'application/json'},
             url: "https://green-guard.herokuapp.com/api/users/addNewUser",
             data: user,
             cache: false,
@@ -108,7 +101,6 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
         console.log('Login');
         $.ajax({
             type: "POST",
-            //headers: { 'Content-Type': 'application/json' },
             url: "https://green-guard.herokuapp.com/api/users/login",
             data: user,
             cache: false,
