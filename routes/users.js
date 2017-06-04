@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
             return res.status(406).send("The password entered does not match user's password")
         else {
             var objectId = new ObjectID(user._id);
-            res.cookie('userId', objectId, { maxAge: 900000, httpOnly: true });
+            res.cookie('userId', objectId, { maxAge: 900000, httpOnly: false });
             var data = JSON.stringify('https://green-guard.herokuapp.com/home.html')
             res.header('Content-Length', data.length);
             res.end(data);
