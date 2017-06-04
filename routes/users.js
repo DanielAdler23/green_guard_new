@@ -126,9 +126,4 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
 })
 
 
-router.post('/getUserCameras', (req, res) => {
-    var userId
-})
-
-
 module.exports = router
