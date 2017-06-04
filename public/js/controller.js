@@ -124,8 +124,9 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
 
 
 green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
-        console.log($cookies.getAll())
+    $scope.cookie = $cookies.get('userId');
 
+    console.log($scope.cookie)
 
         $scope.getAllCamaras = function(){
             $.ajax({
