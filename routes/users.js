@@ -85,7 +85,8 @@ router.post('/addNewUser', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         admin: 0,
-        joined: date.getTime()
+        joined: date.getTime(),
+        cameras: []
     }
 
     db.get().collection('users').findOne({'email': newUser.email}, (err, doc) => {
@@ -111,7 +112,7 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
     var objectId = new ObjectID(userId);
 
 
-    db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$set: {'cameraId': cameraId}}, (err, user) => {
+    db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$push: { cameras: cameraId }}, (err, user) => {
         if(err)
             return res.status(404).send({error: err})
         else
@@ -122,6 +123,11 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
                     return res.status(200).send({message: `Camera attached to user - ${userId}`})
             })
     })
+})
+
+
+router.post('/getUserCameras', (req, res) => {
+    var userId
 })
 
 
