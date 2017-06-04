@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
         else {
             var objectId = new ObjectID(user._id);
             res.cookie('userId', objectId, { maxAge: 900000, httpOnly: true });
-            var data = JSON.stringify('http://localhost:3000/home.html')
+            var data = JSON.stringify('https://green-guard.herokuapp.com/home.html')
             res.header('Content-Length', data.length);
             res.end(data);
         }
