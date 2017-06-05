@@ -137,40 +137,24 @@ router.get('/getUsersCameras/:userId', (req, res) => {
         if(err)
             return res.status(404).send({error: err})
         else {
-            let requests = user.cameras.map(item => { return new Promise((item, resolve) => {
-                    db.get().collection('cameras').findOne({'id': item}, (err, doc, resolve) => {
-                        if (err)
-                            return res.status(404).send({error: err})
-                        else {
-                            usersCameras.push(doc)
-                            resolve()
-                        }
-                    })
-                })
-            })
+            var requests = user.cameras.map(cameraId => getUserCamera(cameraId))
 
-            Promise.all(requests).then(() => {
-                return res.status(200).send({message: usersCameras})
-            })
-
-
-
-
-
-
-
-            // for (var camera of user.cameras)
-            //     db.get().collection('cameras').findOne({'id': camera}, (err, doc) => {
-            //         if (err)
-            //             return res.status(404).send({error: err})
-            //         else {
-            //             console.log(doc)
-            //             usersCameras.push(doc)
-            //             return res.status(200).send({message: usersCameras})
-            //         }
-            //     })
+            Promise.all(requests)
+                .then(cameras => res.status(200).send(cameras))
+                .catch(err => res.status(404).send({error: err}))
         }
     })
 })
+
+
+const getUserCamera = (cameraId) =>  new Promise((resolve, reject) => {
+    db.get().collection('cameras').findOne({'id': cameraId}, (err, doc) => {
+        if (err)
+            reject(err)
+        else
+            resolve(doc)
+    })
+})
+
 
 module.exports = router
