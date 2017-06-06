@@ -1,3 +1,5 @@
+//const environment = 'http://localhost:3000'
+const environment = 'https://green-guard.herokuapp.com'
 
 var polygon = []
 var canvas = document.getElementById('canvas')
@@ -88,7 +90,7 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
         console.log('Adding new user');
         $.ajax({
             type: "POST",
-            url: "https://green-guard.herokuapp.com/api/users/addNewUser",
+            url: `${environment}/api/users/addNewUser`,
             data: user,
             cache: false,
             success: function () {
@@ -101,7 +103,7 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
         console.log('Login');
         $.ajax({
             type: "POST",
-            url: "https://green-guard.herokuapp.com/api/users/login",
+            url: `${environment}/api/users/login`,
             data: user,
             cache: false,
             success: function (data) {
@@ -123,33 +125,34 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
 
 
 
-green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
+green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$cookies,$compile) {
 
         $scope.getUsersCameras = function(){
-            $.ajax({
-                type: "GET",
-                url: "https://green-guard.herokuapp.com/api/cameras/getAll",
-                cache: false,
-                success: function(cameras) {
-                    $scope.cameras = cameras
-
-                    $('.nav-second-level').remove('.user-camera')
-
-                    for (camera of cameras) {
-                        $('.nav-second-level').append(
-                            '<li class="user-camera">'
+            var userId = $cookies.get("userId")
+             $.ajax({
+                 type: "GET",
+                 url: `${environment}/api/users/getUsersCameras/${userId}`,
+                 cache: false,
+                 success: function(cameras) {
+                     $scope.cameras = cameras
+                     console.log(cameras)
+                      $('.nav-second-level').remove('.user-camera')
+                     
+                      for (camera of cameras) {
+                          $('.nav-second-level').append(
+							'<li class="user-camera">'
                             +'<a href ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
-                            '</il>' )
-                    }
-                }
-            });
+							'</il>' )
+                     }
+                 }
+             });
         };
 
 
         $scope.getAllCamaras = function(){
             $.ajax({
                 type: "GET",
-                url: "https://green-guard.herokuapp.com/api/cameras/getAll",
+                url: `${environment}/api/cameras/getAll`,
                 cache: false,
                 success: function(cameras) {
                     $scope.cameras = cameras
@@ -166,10 +169,9 @@ green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
             });
         };
         $scope.getCamera = function(cameraid){
-            console.log('abc')
             $.ajax({
                 type: "GET",
-                url: "https://green-guard.herokuapp.com/api/cameras/getCamera/"+cameraid,
+                url: `${environment}/api/cameras/getCamera/${cameraid}`,
                 cache: false,
                 success: function(data) {
                     console.log(data)
@@ -180,8 +182,32 @@ green.controller('getCameras',['$scope','$cookies', function($scope,$cookies) {
                 }
             });
         };
+        $scope.attachNewCamera = function(){
+            const userId = $cookies.get("userId")
+            $.ajax({
+                type: "GET",
+                url: `${environment}/api/cameras/getFreeCameras`,
+                cache: false,
+                success: function(cameras) {
+                    $scope.cameras = cameras
 
-    }]);
+                    for (let cam of cameras){
+                        console.log(cam);
+
+                        var newCamera = document.createElement('div');
+                        // newCamera.id = 'newCamera';
+                        newCamera.innerHTML = "<img src='"+cam.picture+"'> " +
+                                              "<p>"+cam.id+"</p>"+
+                                              "<button type='button' id='"+cam.id+"' onclick='toggleState("+cam.id+")'>Attach Camera </button> "
+                        document.getElementById('center').appendChild(newCamera)
+
+                    }
+                }
+            });
+        }
+}]);
+
+
 
 green.controller('cameraPage',['$scope','$cookies',
     function($scope,$cookies) {
@@ -221,3 +247,22 @@ green.controller('cameraPage',['$scope','$cookies',
 
 
 }]);
+
+
+function toggleState (cameraId) {
+
+    var userId = decodeURIComponent(document.cookie).slice(8)
+    var userId = userId.slice(0,-1)
+    console.log(userId)
+    console.log(cameraId)
+    $.ajax({
+        type: "post",
+        url: `${environment}/api/users/attachCameraToUser/${userId}`,
+        cache: false,
+        data:{"cameraId": cameraId},
+        success: function(data) {
+            alert(data)
+            console.log(data)
+        }
+    });
+}

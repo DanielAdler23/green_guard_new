@@ -1,3 +1,4 @@
+const config = require('../configuration')
 var express = require('express')
 var logger = require('./../serverUtils/logger')
 var router = express.Router()
@@ -30,7 +31,7 @@ router.post('/login', (req, res) => {
     var email = req.body.email
     var password = req.body.password
 
-    logger.info(`login - ${email}`)
+    logger.info(`Login - ${email}`)
 
     var users = db.get().collection('users')
     users.findOne({'email': email}, (err, user) => {
@@ -41,11 +42,11 @@ router.post('/login', (req, res) => {
         else if(user.password != password)
             return res.status(406).send("The password entered does not match user's password")
         else {
-            var objectId = new ObjectID(user._id);
-            res.cookie('userId', objectId, { maxAge: 900000, httpOnly: true });
-            var data = JSON.stringify('https://green-guard.herokuapp.com/home.html')
-            res.header('Content-Length', data.length);
-            res.end(data);
+            var objectId = new ObjectID(user._id)
+            res.cookie('userId', objectId.toString(), { maxAge: 900000, encode: String })
+            var data = JSON.stringify(`${config.environment}/home.html`)
+            res.header('Content-Length', data.length)
+            res.end(data)
         }
     })
 })
@@ -129,8 +130,8 @@ router.get('/getUsersCameras/:userId', (req, res) => {
     logger.info('Getting user cameras')
 
     var userId = req.params.userId
+    console.log(userId)
     var objectId = new ObjectID(userId)
-    var usersCameras = []
 
     db.get().collection('users').findOne({'_id': objectId}, (err, user) => {
         if(err)

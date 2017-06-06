@@ -76,8 +76,8 @@
                         <a ng-init="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
                         <!--<a ng-init="getAllCamaras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#"><i class="fa fa-user- fa-fw"></i>Attach new camera</a>
+                            <li ng-click="attachNewCamera()">
+                                <a ><i class="fa fa-user- fa-fw"></i>Attach new camera</a>
                             </li>
                         </ul>
 
@@ -99,7 +99,7 @@
                 <h1 class="page-header">Home</h1>
             </div>
         </div>
-        <div>
+        <div  id="center">
 
         </div>
     </div>
@@ -109,7 +109,6 @@
 <script src="./include/metisMenu/metisMenu.min.js"></script>
 <script src="./js/controller.js"></script>
 <script src="./js/sb-admin-2.js"></script>
-
 </body>
 
 </html>

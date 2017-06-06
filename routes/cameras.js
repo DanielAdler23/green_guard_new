@@ -1,3 +1,4 @@
+const config = require('../configuration')
 var express = require('express')
 var axios = require('axios')
 var logger = require('./../serverUtils/logger')
