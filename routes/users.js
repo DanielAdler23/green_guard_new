@@ -41,9 +41,11 @@ router.post('/login', (req, res) => {
         else if(user.password != password)
             return res.status(406).send("The password entered does not match user's password")
         else {
-            var objectId = new ObjectID(user._id);
-            res.cookie('userId', objectId, { maxAge: 900000, httpOnly: true });
-            var data = JSON.stringify('https://green-guard.herokuapp.com/home.html')
+            var objectId = JSON.stringify(new ObjectID(user._id));
+            console.log(objectId)
+            res.cookie('userId', objectId, { maxAge: 900000 });
+            var data = JSON.stringify('http://localhost:3000/home.html')
+            // var data = JSON.stringify('https://green-guard.herokuapp.com/home.html')
             res.header('Content-Length', data.length);
             res.end(data);
         }
@@ -128,8 +130,8 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
 
 router.get('/getUsersCameras/:userId', (req, res) => {
     logger.info('Getting user cameras')
-
     var userId = req.params.userId
+    console.log(userId)
     var objectId = new ObjectID(userId)
     var usersCameras = []
 
@@ -137,24 +139,40 @@ router.get('/getUsersCameras/:userId', (req, res) => {
         if(err)
             return res.status(404).send({error: err})
         else {
-            var requests = user.cameras.map(cameraId => getUserCamera(cameraId))
+            let requests = user.cameras.map(item => { return new Promise((item, resolve) => {
+                    db.get().collection('cameras').findOne({'id': item}, (err, doc, resolve) => {
+                        if (err)
+                            return res.status(404).send({error: err})
+                        else {
+                            usersCameras.push(doc)
+                            resolve()
+                        }
+                    })
+                })
+            })
 
-            Promise.all(requests)
-                .then(cameras => res.status(200).send(cameras))
-                .catch(err => res.status(404).send({error: err}))
+            Promise.all(requests).then(() => {
+                return res.status(200).send({message: usersCameras})
+            })
+
+
+
+
+
+
+
+            // for (var camera of user.cameras)
+            //     db.get().collection('cameras').findOne({'id': camera}, (err, doc) => {
+            //         if (err)
+            //             return res.status(404).send({error: err})
+            //         else {
+            //             console.log(doc)
+            //             usersCameras.push(doc)
+            //             return res.status(200).send({message: usersCameras})
+            //         }
+            //     })
         }
     })
 })
-
-
-const getUserCamera = (cameraId) =>  new Promise((resolve, reject) => {
-    db.get().collection('cameras').findOne({'id': cameraId}, (err, doc) => {
-        if (err)
-            reject(err)
-        else
-            resolve(doc)
-    })
-})
-
 
 module.exports = router
