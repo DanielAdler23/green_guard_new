@@ -22,7 +22,7 @@ router.use((req, res, next) => {
 
 router.get('/', (req, res) => {
     res.header('Content-Type', 'text/plain')
-    return res.status(200).send('Welcome To The Green G uard System')
+    return res.status(200).send('Welcome To The Green Guard System')
 })
 
 
@@ -110,7 +110,6 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
     var userId = req.params.userId
     var cameraId = req.body.cameraId
     var objectId = new ObjectID(userId)
-
 
     db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$push: { cameras: cameraId }}, (err, user) => {
         if(err)
