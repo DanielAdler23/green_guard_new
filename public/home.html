@@ -7,37 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Green Guard </title>
     <link rel=icon href="./images/favicon.ico">
-
-    <!-- Bootstrap Core CSS -->
     <link href="./include/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js" rel="application/javascript">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.js.map" rel="application/octet-stream">
-
-    <!-- Custom CSS -->
     <link href="css/style1.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
     <link rel="application/octet-stream" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css.map">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!--jquery-->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-    <!--Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
     <script src="./js/angular-flash.min.js"></script>
     <link type="text/css" rel="stylesheet" href="./css/angular-flash.min.css" />
 </head>
 
-<body ng-app = "green">
+<body ng-app="green">
 
 <div id="wrapper">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,7 +35,6 @@
             </button>
             <a class="navbar-brand" href="home.html">Green Guard</a>
         </div>
-        <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
           <li class="dropdown">
@@ -80,7 +66,6 @@
                                 <a ><i class="fa fa-user- fa-fw"></i>Attach new camera</a>
                             </li>
                         </ul>
-
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
@@ -105,10 +90,27 @@
     </div>
 </div>
 <script src="./include/jquery/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="./include/bootstrap/js/bootstrap.min.js"></script>
 <script src="./include/metisMenu/metisMenu.min.js"></script>
 <script src="./js/controller.js"></script>
 <script src="./js/sb-admin-2.js"></script>
+<script>
+    function getCamera(cameraId) {
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/getCamera/${cameraId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+                $.cookie("cameraName", data.id)
+                $.cookie("cameraPicture", data.picture)
+                $.cookie("cameraData", data.toString())
+                window.location.href ="cameraPage.html"
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

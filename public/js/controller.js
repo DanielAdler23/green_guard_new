@@ -1,5 +1,5 @@
-//const environment = 'http://localhost:3000'
-const environment = 'https://green-guard.herokuapp.com'
+const environment = 'http://localhost:3000'
+//const environment = 'https://green-guard.herokuapp.com'
 
 var polygon = []
 var canvas = document.getElementById('canvas')
@@ -138,10 +138,10 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                      console.log(cameras)
                       $('.nav-second-level').remove('.user-camera')
                      
-                      for (camera of cameras) {
+                      for (var camera of cameras) {
                           $('.nav-second-level').append(
 							'<li class="user-camera">'
-                            +'<a href ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
+                                +'<a onclick="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
 							'</il>' )
                      }
                  }
@@ -159,19 +159,20 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 
                     $('.nav-second-level').remove('.user-camera')
 
-                    for (camera of cameras) {
+                    for (var camera of cameras) {
                         $('.nav-second-level').append(
                             '<li class="user-camera">'
-                                +'<a href ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
+                                +'<a ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
                             '</il>' )
                     }
                 }
             });
         };
-        $scope.getCamera = function(cameraid){
+        $scope.getCamera = function(cameraId){
+            console.log('Get Camera')
             $.ajax({
                 type: "GET",
-                url: `${environment}/api/cameras/getCamera/${cameraid}`,
+                url: `${environment}/api/cameras/getCamera/${cameraId}`,
                 cache: false,
                 success: function(data) {
                     console.log(data)
@@ -191,8 +192,8 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                 success: function(cameras) {
                     $scope.cameras = cameras
 
-                    for (let cam of cameras){
-                        console.log(cam);
+                    for (var cam of cameras){
+                        console.log('camera - ' + cam);
 
                         var newCamera = document.createElement('div');
                         // newCamera.id = 'newCamera';
@@ -209,13 +210,23 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 
 
 
-green.controller('cameraPage',['$scope','$cookies',
-    function($scope,$cookies) {
+green.controller('cameraPage', ['$scope', '$cookies', function($scope, $cookies) {
+
+        $scope.initializePage = function() {
+            console.log('Initialize')
+            $scope.cameraName = $cookies.get("cameraName")
+            $scope.cameraPicture = $cookies.get("cameraPicture")
+            $scope.cameraData = $cookies.get("cameraData")
+        }
+
+
         $scope.submit = function(){
-            console.log($scope.sr)
-            console.log(polygon)
-            var x = $cookies.get('camera')
-            console.log(x)
+            var cameraName = $cookies.get("cameraName")
+            var cameraPicture = $cookies.get("cameraPicture")
+            var cameraData = $cookies.get("cameraData")
+            console.log(cameraName)
+            console.log(cameraPicture)
+            console.log(cameraData)
             // $.post("https://green-guard.herokuapp.com/api/cameras/setRule/"+camera.id, {
             //         "inOut": camera.inOut,
             //         "polygon": JSON.stringify(polygon)
