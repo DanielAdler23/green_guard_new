@@ -198,19 +198,33 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             url: `${environment}/api/cameras/getFreeCameras`,
             cache: false,
             success: function(cameras) {
-                $scope.cameras = cameras
-
+                console.log(cameras);
                 for (var cam of cameras){
-                    console.log('camera - ' + cam);
-
                     var newCamera = document.createElement('div');
-                    // newCamera.id = 'newCamera';
                     newCamera.innerHTML = "<img src='"+cam.picture+"'> " +
                         "<p>"+cam.id+"</p>"+
-                        "<button type='button' id='"+cam.id+"' onclick='toggleState("+cam.id+")'>Attach Camera </button> "
+                        "<button type='button' id='"+cam.id+"' ng-click='toggleState("+cam.id+")'>Attach Camera </button> "
                     document.getElementById('center').appendChild(newCamera)
 
+                    $compile(newCamera)($scope);
+                    $scope.$digest();
                 }
+            }
+        });
+    }
+    $scope.toggleState = function (cameraId) {
+        const userId = $cookies.get("userId")
+
+        console.log(userId)
+        console.log(cameraId)
+        $.ajax({
+            type: "post",
+            url: `${environment}/api/users/attachCameraToUser/${userId}`,
+            cache: false,
+            data:{"cameraId": cameraId},
+            success: function(data) {
+                alert(data)
+                console.log(data)
             }
         });
     }
