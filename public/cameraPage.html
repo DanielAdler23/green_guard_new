@@ -2,121 +2,131 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Green Guard </title>
+    <link rel=icon href="./images/favicon.ico">
     <link href="./include/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./include/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js" rel="application/javascript">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.js.map" rel="application/octet-stream">
     <link href="css/style1.css" rel="stylesheet">
-    <link href="./include/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-
+    <link rel="application/octet-stream" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css.map">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+    <script src="./js/angular-flash.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="./css/angular-flash.min.css" />
 </head>
 
 <body ng-app="green">
 
-    <div id="wrapper">
+<div id="wrapper" ng-controller ="cameraPage">
 
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="home.html">Green Guard</a>
-            </div>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">Green Guard</a>
+        </div>
 
-            <ul class="nav navbar-top-links navbar-right">
-              <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
-                        </li>
-                        <li ng-controller ="getCameras">
-                            <a href ng-click="getcamaras()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li ng-repeat="camera in cameras">
-                                    <a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>
-                                    <!--// need to change the camara.id to camera name after adding name in the server.-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li ng-repeat="camera in cameras">
+                                <a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>
+                                <!--// need to change the camara.id to camera name after adding name in the server.-->
 
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i> Notifications</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> About us</a>
-                        </li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> Notifications</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> About us</a>
+                    </li>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div>
-                        <h1 class="page-header">{{cameraName}}</h1>
-                        <!--<h1 class="page-header">camera-1</h1>-->
-                        <div id="imgHolder">
-                            <img id="myImage" src= "./images/eyowsxI.jpg" ng-click="showCoords(event)">
-                            <canvas id= "canvas" width="640" height="480"> </canvas>
-                        </div>
-                    </div>
-                    <div>
-                        <form>
-                            <label>
-                                <input type="radio" ng-model="sr" value="0">in
-                            </label>
-                            <label>
-                                <input type="radio" ng-model="sr" value="1">out
-                            </label>
-                            <label>
-                                <input type="radio" ng-model="sr" ng-checked="true" value="Null">No
-                            </label>
-                        </form>
-
-                        <button ng-click= "submit()"> Submit </button><br><br>
-                        <button ng-click= ""> Edit polygon </button>
-                        <button ng-click= "startCamera()"> Start </button>
-                        <button ng-click= ""> Stop </button>
-
-                    </div>
-
-                </div>
+                </ul>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
-        <script src="./include/jquery/jquery.min.js"></script>
-        <script src="./include/bootstrap/js/bootstrap.min.js"></script>
-        <script src="./include/metisMenu/metisMenu.min.js"></script>
-        <!--<script src="./js/setPolygon.js"></script>-->
-        <script src="./js/controller.js"></script>
-        <script src="./js/sb-admin-2.js"></script>
+    </nav>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div>
+                    <h1 class="page-header">{{cameraName}}</h1>
+                    <div id="imgHolder">
+                        <img id="myImage" ng-click="showCoords(event)">
+                        <canvas id= "canvas" width="640" height="480"> </canvas>
+                    </div>
+                </div>
+                <div>
+                    <form>
+                        <label>
+                            <input type="radio" ng-model="sr" value="0">in
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="sr" value="1">out
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="sr" ng-checked="true" value="Null">No
+                        </label>
+                    </form>
+
+                    <button ng-click= "submit()"> Submit </button><br><br>
+                    <button ng-click= ""> Edit polygon </button>
+                    <button ng-click= "startCamera()"> Start </button>
+                    <button ng-click= ""> Stop </button>
+
+                </div>
+
+            </div>
+        </div>
     </div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>-->
+    <!--<script src="./include/jquery/jquery.min.js"></script>-->
+    <!--<script src="./include/bootstrap/js/bootstrap.min.js"></script>-->
+    <!--<script src="./include/metisMenu/metisMenu.min.js"></script>-->
+    <!--&lt;!&ndash;<script src="./js/setPolygon.js"></script>&ndash;&gt;-->
+    <!--<script src="./js/controller.js"></script>-->
+    <!--<script src="./js/sb-admin-2.js"></script>-->
+</div>
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="./include/bootstrap/js/bootstrap.min.js"></script>
+<script src="./include/metisMenu/metisMenu.min.js"></script>
+<script src="./js/controller.js"></script>
+<script src="./js/sb-admin-2.js"></script>
 </body>
 
 </html>

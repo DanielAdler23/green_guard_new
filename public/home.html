@@ -59,7 +59,7 @@
                         <a href="#"><i class="fa fa-user- fa-fw"></i> Profile</a>
                     </li>
                     <li ng-controller ="getCameras">
-                        <a ng-click="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                        <a ng-init="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
                         <!--<a ng-init="getAllCamaras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
                         <ul class="nav nav-second-level">
                             <li ng-click="attachNewCamera()">
