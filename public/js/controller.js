@@ -141,9 +141,13 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                       for (var camera of cameras) {
                           $('.nav-second-level').append(
 							'<li class="user-camera">'
-                                +'<a onclick="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
+                                +'<a ng-click="getCamera('+camera.id+')"><i class="fa fa-user- fa-fw"></i>'+camera.id+'</a>'+
 							'</il>' )
                      }
+
+                     var body = document.body
+                     $compile(body)($scope);
+                     $scope.$digest();
                  }
              });
         };
