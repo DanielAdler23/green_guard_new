@@ -59,15 +59,24 @@
                         <a href="#"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
                     </li>
                     <li>
-                        <a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                        <a ng-init="initializePage()"><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                        <!--<a ng-init="getAllCamaras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
                         <ul class="nav nav-second-level">
-                            <li ng-repeat="camera in cameras">
-                                <a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>
-                                <!--// need to change the camara.id to camera name after adding name in the server.-->
-
+                            <li ng-click="attachNewCamera()">
+                                <a ><i class="fa fa-user- fa-fw"></i>Attach new camera</a>
                             </li>
                         </ul>
                     </li>
+                    <!--<li>-->
+                        <!--<a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
+                        <!--<ul class="nav nav-second-level">-->
+                            <!--<li ng-repeat="camera in cameras">-->
+                                <!--<a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>-->
+                                <!--&lt;!&ndash;// need to change the camara.id to camera name after adding name in the server.&ndash;&gt;-->
+
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
                     <li>
                         <a href="#"><i class="fa fa-table fa-fw"></i> Notifications</a>
                     </li>
@@ -83,7 +92,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div>
-                    <h1 class="page-header">{{cameraName}}</h1>
+                    <h1 class="page-header">{{cameraId}}</h1>
                     <div id="imgHolder">
                         <img id="myImage" ng-click="showCoords(event)">
                         <canvas id= "canvas" width="640" height="480"> </canvas>
@@ -104,7 +113,7 @@
 
                     <button ng-click= "submit()"> Submit </button><br><br>
                     <button ng-click= ""> Edit polygon </button>
-                    <button ng-click= "startCamera()"> Start </button>
+                    <button ng-click= "startCamera(cameraId)"> Start </button>
                     <button ng-click= ""> Stop </button>
 
                 </div>
