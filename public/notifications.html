@@ -23,7 +23,7 @@
 
 <body ng-app="green">
 
-<div id="wrapper">
+<div id="wrapper" ng-controller="notifications">
 
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -37,7 +37,7 @@
         </div>
 
         <ul class="nav navbar-top-links navbar-right">
-          <li class="dropdown">
+            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
@@ -55,7 +55,7 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                   <li>
+                    <li>
                         <a href="#"><i class="fa fa-user- fa-fw"></i> Profile</a>
                     </li>
                     <li ng-controller ="getCameras">
@@ -68,7 +68,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="notifications.html"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
+                        <a href="#"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i> About us</a>
@@ -96,20 +96,20 @@
 <script src="./js/controller.js"></script>
 <script src="./js/sb-admin-2.js"></script>
 <!--<script>-->
-    <!--function getCamera(cameraId) {-->
-        <!--$.ajax({-->
-            <!--type: "GET",-->
-            <!--url: `${environment}/api/cameras/getCamera/${cameraId}`,-->
-            <!--cache: false,-->
-            <!--success: function(data) {-->
-                <!--console.log(data)-->
-                <!--$.cookie("cameraName", data.id)-->
-                <!--$.cookie("cameraPicture", data.picture)-->
-                <!--$.cookie("cameraData", data.toString())-->
-                <!--window.location.href ="cameraPage.html"-->
-            <!--}-->
-        <!--})-->
-    <!--}-->
+<!--function getCamera(cameraId) {-->
+<!--$.ajax({-->
+<!--type: "GET",-->
+<!--url: `${environment}/api/cameras/getCamera/${cameraId}`,-->
+<!--cache: false,-->
+<!--success: function(data) {-->
+<!--console.log(data)-->
+<!--$.cookie("cameraName", data.id)-->
+<!--$.cookie("cameraPicture", data.picture)-->
+<!--$.cookie("cameraData", data.toString())-->
+<!--window.location.href ="cameraPage.html"-->
+<!--}-->
+<!--})-->
+<!--}-->
 <!--</script>-->
 </body>
 
