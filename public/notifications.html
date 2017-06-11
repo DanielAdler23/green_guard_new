@@ -14,6 +14,7 @@
     <link href="css/style1.css" rel="stylesheet">
     <link rel="application/octet-stream" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css.map">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
     <script src="./js/angular-flash.min.js"></script>
@@ -22,7 +23,7 @@
 
 <body ng-app="green">
 
-<div id="wrapper" ng-controller ="cameraPage">
+<div id="wrapper" ng-controller="notifications">
 
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -41,10 +42,8 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
+                    <li><a href="#"><i class="fa fa-user-circle-o fa-fw"></i> User Profile</a></li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                     <li class="divider"></li>
                     <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
@@ -52,14 +51,15 @@
             </li>
         </ul>
 
+
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
+                        <a href="#"><i class="fa fa-user- fa-fw"></i> Profile</a>
                     </li>
-                    <li>
-                        <a ng-init="initializePage()"><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                    <li ng-controller ="getCameras">
+                        <a ng-init="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
                         <!--<a ng-init="getAllCamaras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
                         <ul class="nav nav-second-level">
                             <li ng-click="attachNewCamera()">
@@ -67,18 +67,8 @@
                             </li>
                         </ul>
                     </li>
-                    <!--<li>-->
-                        <!--<a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
-                        <!--<ul class="nav nav-second-level">-->
-                            <!--<li ng-repeat="camera in cameras">-->
-                                <!--<a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>-->
-                                <!--&lt;!&ndash;// need to change the camara.id to camera name after adding name in the server.&ndash;&gt;-->
-
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
                     <li>
-                        <a href="notifications.html"><i class="fa fa-table fa-fw"></i> Notifications</a>
+                        <a href="#"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i> About us</a>
@@ -91,49 +81,36 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <div>
-                    <h1 class="page-header">{{cameraTitle}}</h1>
-                    <div id="imgHolder">
-                        <img id="myImage" ng-click="showCoords(event)">
-                        <canvas id= "canvas" width="640" height="480"> </canvas>
-                    </div>
-                </div>
-                <div>
-                    <form>
-                        <label>
-                            <input type="radio" ng-model="inOut" value="0">in
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="inOut" value="1">out
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No
-                        </label>
-                    </form>
-
-                    <button ng-click= "setRule()"> setRule </button><br><br>
-                    <button ng-click= "startCamera()"> Start </button>
-
-                </div>
-
+                <h1 class="page-header">Home</h1>
             </div>
         </div>
+        <div  id="center">
+
+        </div>
     </div>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>-->
-    <!--<script src="./include/jquery/jquery.min.js"></script>-->
-    <!--<script src="./include/bootstrap/js/bootstrap.min.js"></script>-->
-    <!--<script src="./include/metisMenu/metisMenu.min.js"></script>-->
-    <!--&lt;!&ndash;<script src="./js/setPolygon.js"></script>&ndash;&gt;-->
-    <!--<script src="./js/controller.js"></script>-->
-    <!--<script src="./js/sb-admin-2.js"></script>-->
 </div>
-<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="./include/jquery/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="./include/bootstrap/js/bootstrap.min.js"></script>
 <script src="./include/metisMenu/metisMenu.min.js"></script>
 <script src="./js/controller.js"></script>
 <script src="./js/sb-admin-2.js"></script>
+<!--<script>-->
+<!--function getCamera(cameraId) {-->
+<!--$.ajax({-->
+<!--type: "GET",-->
+<!--url: `${environment}/api/cameras/getCamera/${cameraId}`,-->
+<!--cache: false,-->
+<!--success: function(data) {-->
+<!--console.log(data)-->
+<!--$.cookie("cameraName", data.id)-->
+<!--$.cookie("cameraPicture", data.picture)-->
+<!--$.cookie("cameraData", data.toString())-->
+<!--window.location.href ="cameraPage.html"-->
+<!--}-->
+<!--})-->
+<!--}-->
+<!--</script>-->
 </body>
 
 </html>
