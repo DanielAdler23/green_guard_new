@@ -203,15 +203,23 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             success: function(cameras) {
                 console.log(cameras);
                 for (var cam of cameras){
-                    var newCamera = document.createElement('div');
-                    newCamera.innerHTML = "<img src='"+cam.picture+"'> " +
-                        "<p>"+cam.id+"</p>"+
-                        "<button type='button' id='"+cam.id+"' ng-click='toggleState("+cam.id+")'>Attach Camera </button> "
-                    document.getElementById('center').appendChild(newCamera)
 
-                    $compile(newCamera)($scope);
-                    $scope.$digest();
+
+                    var gallery = document.createElement('div')
+                    gallery.id = "galery"
+                    gallery.style.float = "left"
+                    gallery.style.padding = "3px 6px"
+                    gallery.style.margin = "0px 3px 3px"
+                    gallery.style.border = "1px solid #ccc"
+
+                    gallery.innerHTML = "<p> <b>camera number:</b> "+cam.id+"</p>"+
+                        "<img display='block' width='300' height='200' src='"+cam.picture+"'> " +
+                        "<button display='block' type='button' id='"+cam.id+"' ng-click='toggleState("+cam.id+")'>Attach Camera </button> "
+                    document.getElementById('center').appendChild(gallery)
+
                 }
+                $compile(gallery)($scope);
+                $scope.$digest();
             }
         });
     }

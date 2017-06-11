@@ -434,3 +434,7 @@ table.dataTable thead .sorting:after {
 #myImage{
     display: none;
 }
+
+.editName{
+    color: #000;
+}
