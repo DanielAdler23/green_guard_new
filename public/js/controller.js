@@ -311,20 +311,22 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
         console.log(cameraId)
         console.log(cameraPicture)
         console.log(cameraData)
-        // $.post("https://green-guard.herokuapp.com/api/cameras/setRule/"+camera.id, {
-        //         "inOut": camera.inOut,
-        //         "polygon": JSON.stringify(polygon)
-        //     },
-        //     function(data, status){
-        //         alert("Data: " + data.message + "\nStatus: " + status);
-        //     })
-        //
-        //
-        // for(var i=0; i < polygon.length; i++)
-        //     console.log("Point " + i + " - X: " + polygon[i].x + " Y: " + polygon[i].y)
+
+        $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
+                "inOut": camera.inOut,
+                "polygon": JSON.stringify(polygon)
+            },
+            function(data, status){
+                alert("Data: " + data.message + "\nStatus: " + status);
+            })
+
+
+        for(var i=0; i < polygon.length; i++)
+            console.log("Point " + i + " - X: " + polygon[i].x + " Y: " + polygon[i].y)
     }
 
     $scope.startCamera = function(cameraId){
+        var cameraId = $cookies.get("cameraId")
         console.log(`Start Camera - ${cameraId}`)
 
         $.ajax({
