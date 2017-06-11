@@ -293,6 +293,12 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
                 $cookies.put("cameraPicture", data.picture)
                 $cookies.put("cameraIp", data.ip)
                 $cookies.put("cameraPort", data.port)
+
+                if(data.name)
+                    $cookies.put("cameraName", data.name)
+                else
+                    $cookies.remove("cameraName")
+
                 window.location.href ="cameraPage.html"
             }
         })
