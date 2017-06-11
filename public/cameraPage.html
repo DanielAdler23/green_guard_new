@@ -101,20 +101,20 @@
                 <div>
                     <form>
                         <label>
-                            <input type="radio" ng-model="sr" value="0">in
+                            <input type="radio" ng-model="inOut" value="0">in
                         </label>
                         <label>
-                            <input type="radio" ng-model="sr" value="1">out
+                            <input type="radio" ng-model="inOut" value="1">out
                         </label>
                         <label>
-                            <input type="radio" ng-model="sr" ng-checked="true" value="Null">No
+                            <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No
                         </label>
                     </form>
 
-                    <button ng-click= "submit()"> Submit </button><br><br>
-                    <button ng-click= ""> Edit polygon </button>
+                    <button ng-click= "setRule()"> setRule </button><br><br>
+                    <!--<button ng-click= ""> Edit polygon </button>-->
                     <button ng-click= "startCamera()"> Start </button>
-                    <button ng-click= ""> Stop </button>
+                    <!--<button ng-click= ""> Stop </button>-->
 
                 </div>
 

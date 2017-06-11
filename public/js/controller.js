@@ -226,8 +226,8 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             cache: false,
             data:{"cameraId": cameraId},
             success: function(data) {
-                alert(data)
                 console.log(data)
+                window.location.href="home.html"
             }
         });
     }
@@ -304,16 +304,14 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
         })
     }
 
-    $scope.submit = function(){
+    $scope.setRule = function(){
         var cameraId = $cookies.get("cameraId")
         var cameraPicture = $cookies.get("cameraPicture")
-        var cameraData = $cookies.get("cameraData")
-        console.log(cameraId)
-        console.log(cameraPicture)
-        console.log(cameraData)
+        console.log($scope.inOut)
+        console.log(polygon)
 
         $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
-                "inOut": camera.inOut,
+                "inOut": $scope.inOut,
                 "polygon": JSON.stringify(polygon)
             },
             function(data, status){
