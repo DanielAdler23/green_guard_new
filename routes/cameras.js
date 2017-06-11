@@ -159,6 +159,24 @@ router.get('/startCamera/:cameraId', (req, res) => {
 })
 
 
+router.post('/setName/:cameraId', (req, res) => {
+    var cameraId = req.params.cameraId
+    var cameraName = req.body.cameraName
+    // var cameras = db.get().collection('cameras')
+
+    logger.info(`Setting name for camera - ${cameraId}`)
+
+    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'name': cameraName}}, (err, doc) => {
+        if(err) {
+            logger.error(err)
+            res.status(400).send({error: err})
+        } else if(doc)
+            res.status(200).send({message: `Camera name set - ${cameraId} -> ${cameraName}`})
+        else
+            res.status(404).send({message: `No camera with id - ${cameraId}`})
+    })
+})
+
 router.post('/editRule/:cameraId', (req, res) => {
     // console.log("Editing camera's rule")
     // var cameras = db.get().collection('cameras')

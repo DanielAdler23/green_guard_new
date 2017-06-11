@@ -142,7 +142,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                     for (var camera of cameras) {
                         if(camera) {
                             $('.nav-second-level').append('<li class="user-camera">'
-                                + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + camera.id + '</a>' +
+                                + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + (camera.name ? camera.name : camera.id) + '</a>' +
                                 '</il>')
                         }
                     }
@@ -188,6 +188,8 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                 $cookies.put("cameraPicture", data.picture)
                 $cookies.put("cameraIp", data.ip)
                 $cookies.put("cameraPort", data.port)
+                if(data.name)
+                    $cookies.put("cameraName", data.name)
                 window.location.href ="cameraPage.html"
             }
         });
@@ -242,9 +244,13 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
         var cameraIp = $cookies.get("cameraIp")
         var cameraPort = $cookies.get("cameraPort")
         var cameraPicture = $cookies.get("cameraPicture")
+        var cameraName = $cookies.get("cameraName")
         var cameraData = $cookies.get("cameraData")
 
-        $scope.cameraId = cameraId
+        if(cameraName)
+            $scope.cameraTitle = cameraName
+        else
+            $scope.cameraTitle = cameraId
 
         $('#myImage').attr("src", cameraPicture)
 
@@ -261,7 +267,7 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
                     for (var camera of cameras) {
                         if(camera) {
                             $('.nav-second-level').append('<li class="user-camera">'
-                                + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + camera.id + '</a>' +
+                                + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + (camera.name ? camera.name : camera.id) + '</a>' +
                                 '</il>')
                         }
                     }
