@@ -1,4 +1,4 @@
-const environment = 'http://localhost:3000'
+const environment = 'http://172.20.10.5:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -107,13 +107,14 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
             data: user,
             cache: false,
             success: function (data) {
-
-                console.log(data.error)
+                console.log(data)
+                console.log(data.redirect)
+                $cookies.put("userId", data.userId)
 
                 var id = Flash.create('info', 'HELLO', 0, {class: 'custom-class', id: 'custom-id'}, true)
-
-                window.location = data
                 console.log("Form Data Sent successfully");
+
+                window.location.href = data.redirect
             },
             error: function (error) {
                 console.log(error.responseText)
