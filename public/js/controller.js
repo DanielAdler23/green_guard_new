@@ -1,4 +1,4 @@
-const environment = 'http://localhost:3000'
+const environment = 'http://172.20.10.5:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -107,13 +107,14 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
             data: user,
             cache: false,
             success: function (data) {
-
-                console.log(data.error)
+                console.log(data)
+                console.log(data.redirect)
+                $cookies.put("userId", data.userId)
 
                 var id = Flash.create('info', 'HELLO', 0, {class: 'custom-class', id: 'custom-id'}, true)
-
-                window.location = data
                 console.log("Form Data Sent successfully");
+
+                window.location.href = data.redirect
             },
             error: function (error) {
                 console.log(error.responseText)
@@ -203,15 +204,23 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             success: function(cameras) {
                 console.log(cameras);
                 for (var cam of cameras){
-                    var newCamera = document.createElement('div');
-                    newCamera.innerHTML = "<img src='"+cam.picture+"'> " +
-                        "<p>"+cam.id+"</p>"+
-                        "<button type='button' id='"+cam.id+"' ng-click='toggleState("+cam.id+")'>Attach Camera </button> "
-                    document.getElementById('center').appendChild(newCamera)
 
-                    $compile(newCamera)($scope);
-                    $scope.$digest();
+
+                    var gallery = document.createElement('div')
+                    gallery.id = "galery"
+                    gallery.style.float = "left"
+                    gallery.style.padding = "3px 6px"
+                    gallery.style.margin = "0px 3px 3px"
+                    gallery.style.border = "1px solid #ccc"
+
+                    gallery.innerHTML = "<p> <b>camera number:</b> "+cam.id+"</p>"+
+                        "<img display='block' width='300' height='200' src='"+cam.picture+"'> " +
+                        "<button display='block' type='button' id='"+cam.id+"' ng-click='toggleState("+cam.id+")'>Attach Camera </button> "
+                    document.getElementById('center').appendChild(gallery)
+
                 }
+                $compile(gallery)($scope);
+                $scope.$digest();
             }
         });
     }
@@ -226,8 +235,8 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             cache: false,
             data:{"cameraId": cameraId},
             success: function(data) {
-                alert(data)
                 console.log(data)
+                window.location.href="home.html"
             }
         });
     }
@@ -304,16 +313,14 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
         })
     }
 
-    $scope.submit = function(){
+    $scope.setRule = function(){
         var cameraId = $cookies.get("cameraId")
         var cameraPicture = $cookies.get("cameraPicture")
-        var cameraData = $cookies.get("cameraData")
-        console.log(cameraId)
-        console.log(cameraPicture)
-        console.log(cameraData)
+        console.log($scope.inOut)
+        console.log(polygon)
 
         $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
-                "inOut": camera.inOut,
+                "inOut": $scope.inOut,
                 "polygon": JSON.stringify(polygon)
             },
             function(data, status){
