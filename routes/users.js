@@ -43,10 +43,11 @@ router.post('/login', (req, res) => {
             return res.status(406).send("The password entered does not match user's password")
         else {
             var objectId = new ObjectID(user._id)
-            res.cookie('userId', objectId.toString(), { maxAge: 900000, encode: String })
-            var data = JSON.stringify(`${config.environment}/home.html`)
+            // res.cookie('userId', objectId.toString(), { maxAge: 900000, encode: String })
+            var data = {'redirect': 'home.html', 'userId': objectId.toString()}
             res.header('Content-Length', data.length)
-            res.end(data)
+            res.send(JSON.stringify(data))
+            return res.end()
         }
     })
 })
@@ -129,8 +130,10 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
 router.get('/getUsersCameras/:userId', (req, res) => {
     logger.info('Getting user cameras')
 
-    var userId = req.params.userId
-    console.log(userId)
+    if(req.params.userId != "undefined")
+        var userId = req.params.userId
+    else
+        return res.status(400).send({message: 'No user id'})
     var objectId = new ObjectID(userId)
 
     db.get().collection('users').findOne({'_id': objectId}, (err, user) => {
@@ -147,12 +150,44 @@ router.get('/getUsersCameras/:userId', (req, res) => {
 })
 
 
+router.get('/getUsersAlerts/:userId', (req, res) => {
+    logger.info("Getting user's alerts")
+
+    var userId = req.params.userId
+    var objectId = new ObjectID(userId)
+
+    db.get().collection('users').findOne({'_id': objectId}, (err, user) => {
+        if(err)
+            return res.status(404).send({error: err})
+        else if(user) {
+            var requests = user.cameras.map(cameraId => getCameraAlerts(cameraId))
+
+            Promise.all(requests)
+                .then(cameras => res.status(200).send(cameras[0]))
+                .catch(err => res.status(404).send({error: err}))
+        } else
+            return res.status(400).send({message: `There is no user with id - ${userId}`})
+    })
+})
+
+
 const getUserCamera = (cameraId) =>  new Promise((resolve, reject) => {
     db.get().collection('cameras').findOne({'id': cameraId}, (err, doc) => {
         if (err)
             reject(err)
         else
             resolve(doc)
+    })
+})
+
+const getCameraAlerts = (cameraId) => new Promise((resolve, reject) => {
+    db.get().collection('alerts').find({'cameraId': cameraId}).toArray((err, docs) => {
+        if (err)
+            reject(err)
+        else {
+            console.log(docs)
+            resolve(docs)
+        }
     })
 })
 

@@ -347,6 +347,12 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
 
 green.controller('notifications', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
 
+    $scope.getUserNotifications = function() {
+
+    }
+
+
+
     $scope.initializePage = function() {
         console.log('Initialize')
         var userId = $cookies.get("userId")

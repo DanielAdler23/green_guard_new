@@ -28,8 +28,10 @@ function sendMail(recipient, photoUrl) {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             logger.error(error)
-        }
-        logger.info('Message %s sent: %s', info.messageId, info.response);
+        } else if(info)
+            logger.info('Message %s sent: %s', info.messageId, info.response);
+        else
+            logger.error('Message could not be sent to client')
     })
 }
 
