@@ -13,6 +13,7 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+    background-color: #285943;
 }
 
 
@@ -188,7 +189,7 @@ input[type='submit'] {
 .login input[type='password']:hover,
 .login input[type='text']:focus,
 .login input[type='text']:hover {
-    background-color: #4281A4;
+    background-color: #222;
 }
 
 .login input[type='submit'] {
@@ -200,7 +201,7 @@ input[type='submit'] {
 
 .login input[type='submit']:focus,
 .login input[type='submit']:hover {
-    background-color: #4281A4;
+    background-color: #222;
 }
 
 
