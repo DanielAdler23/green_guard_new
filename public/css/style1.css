@@ -377,6 +377,6 @@ table.dataTable thead .sorting:after {
     color: #000;
 }
 
-#table, td{
+#table, td,th{
     border: 1px solid black;
 }
