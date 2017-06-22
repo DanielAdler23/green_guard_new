@@ -128,7 +128,9 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
 
 green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$cookies,$compile) {
 
-
+    $scope.getUsersCameras = function () {
+        window.location.href ="cameras.html"
+    }
     $scope.getAllcameras = function(){
         $.ajax({
             type: "GET",
