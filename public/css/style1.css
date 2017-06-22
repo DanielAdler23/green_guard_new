@@ -438,3 +438,7 @@ table.dataTable thead .sorting:after {
 .editName{
     color: #000;
 }
+
+#table, td{
+    border: 1px solid black;
+}
