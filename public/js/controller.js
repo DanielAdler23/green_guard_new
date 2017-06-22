@@ -359,26 +359,39 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
 
 green.controller('notifications', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
 
-    $scope.getUserNotifications = function() {
-
-    }
-
-    $scope.initializePage = function() {
-        console.log('Initialize')
+    $scope.getUsersNotifications = function() {
+        console.log('Getting users notifications')
         var userId = $cookies.get("userId")
-        var cameraId = $cookies.get("cameraId")
-        var cameraIp = $cookies.get("cameraIp")
-        var cameraPort = $cookies.get("cameraPort")
-        var cameraPicture = $cookies.get("cameraPicture")
-        var cameraName = $cookies.get("cameraName")
-        var cameraData = $cookies.get("cameraData")
 
-        if(cameraName)
-            $scope.cameraTitle = cameraName
-        else
-            $scope.cameraTitle = cameraId
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/users/getUsersAlerts/${userId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+                if(data.length > 0) {
+                    for (var alert of data) {
+                        $('table').append(
+                            '<tr>' +
+                            '<td id="checkbox"><input type="checkbox"></td>' +
+                            '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                            '<td id="cameraName"></td>' +
+                            '<td id="cameraId">' + alert.alertId + '</td>' +
+                            '<td id="rename"><input></td>' +
+                            // '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea(' + camera.id + ')">set area</button></td>' +
+                            // '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
+                            '<td id="save"><button>save</button></td>' +
+                            '</tr>'
+                        )
+                    }
+                    var table = document.querySelector('#table')
+                    $compile(table)($scope)
+                }
+            }
+        })
 
-        $('#myImage').attr("src", cameraPicture)
+
+        // $('#myImage').attr("src", cameraPicture)
 
     }
 
