@@ -54,28 +54,42 @@ router.get('/getFreeCameras', (req, res) => {
 router.post('/newCamera', upload.array('file', 12), (req, res) => {
     logger.info('Adding new camera to camera pool')
 
-    var photoBase64 = req.files[0].buffer.toString('base64')
-    // var photoBase64 = req.body.picture
-    // var aaa = new Buffer(photoBase64, 'base64')
-
-    utils.savePhotoBase64(photoBase64, (err, url) => {
+    db.get().collection('cameras').findOne({'id': req.body.cameraId}, (err, doc) => {
         if(err) {
             logger.error(err)
-            return res.status(404).send({error: `Failed to save camera's photo to image database`, error: err})
+            return res.status(404).send({error: err})
+        } else if(doc) {
+            logger.info(`Camera ${req.body.cameraId} already exists in database`)
+            return res.status(605).send({message: 'Camera already exists in database'})
         } else {
-            var newCamera = {
-                'id': req.body.cameraId,
-                'ip': req.body.ip,
-                'port': req.body.port,
-                'added': Date.now(),
-                'picture': url
-            }
+            var photoBase64 = req.files[0].buffer.toString('base64')
 
-            db.get().collection('cameras').insertOne(newCamera, (err, result) => {
-                if(err)
-                    logger.error(`Could not insert new camera to database -${err}`)
-                logger.info(`New camera added to pool ID - ${req.body.cameraId}`)
-                return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraId}`})
+            utils.savePhotoBase64(photoBase64, (err, url) => {
+                if(err) {
+                    logger.error(err)
+                    return res.status(404).send({message: `Failed to save camera's photo to image database`, error: err})
+                } else {
+                    var newCamera = {
+                        'id': req.body.cameraId,
+                        'ip': req.body.ip,
+                        'port': req.body.port,
+                        'added': Date.now(),
+                        'picture': url
+                    }
+
+                    db.get().collection('cameras').insertOne(newCamera, (err, result) => {
+                        if(err) {
+                            logger.error(`Could not insert new camera to database -${err}`)
+                            return res.status(404).send({
+                                message: `Failed to save camera's photo to image database`,
+                                error: err
+                            })
+                        } else {
+                            logger.info(`New camera added to pool ID - ${req.body.cameraId}`)
+                            return res.status(200).send({message: `New camera added to pool ID - ${req.body.cameraId}`})
+                        }
+                    })
+                }
             })
         }
     })

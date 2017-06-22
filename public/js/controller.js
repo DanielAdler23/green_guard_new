@@ -1,4 +1,4 @@
-const environment = 'http://172.20.10.5:3000'
+const environment = 'http://localhost:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
