@@ -58,15 +58,14 @@
                    <li>
                         <a href="#"><i class="fa fa-user- fa-fw"></i> Profile</a>
                     </li>
-
-                    <li ng-controller ="getCameras">
-                        <a ng-click="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
+                    <li >
+                        <a ng-init="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>
                         <!--<a ng-init="getAllCamaras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
-                        <!--<ul class="nav nav-second-level">-->
-                            <!--<li ng-click="attachNewCamera()">-->
-                                <!--<a ><i class="fa fa-user- fa-fw"></i>Attach new camera</a>-->
-                            <!--</li>-->
-                        <!--</ul>-->
+                        <ul class="nav nav-second-level">
+                            <li ng-click="attachNewCamera()">
+                                <a ><i class="fa fa-user- fa-fw"></i>Attach new camera</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="notifications.html"><i class="fa fa-bell-o fa-fw"></i> Notifications</a>
@@ -79,10 +78,28 @@
             </div>
         </div>
     </nav>
-    <div id="page-wrapper">
+    <div id="page-wrapper" ng-controller ="cameras">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Home</h1>
+                <h1 class="page-header">cameras</h1>
+                <div id="cameraTable" ng-init="init()">
+                    <button> del</button>
+                    <input id="addCamear" ng-model="add">
+                    <button ng-click="addCamera()"> add</button>
+                    <br><br>
+                    <table id="table">
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>icon</td>
+                            <td>camera Name</td>
+                            <td>camera ID</td>
+                            <td>rename</td>
+                            <td>define area</td>
+                            <td>status</td>
+                        </tr>
+
+                    </table>
+                </div>
             </div>
         </div>
         <div  id="center">
