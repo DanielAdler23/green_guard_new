@@ -180,20 +180,16 @@ router.get('/getUsersAlerts/:userId', (req, res) => {
     var objectId = new ObjectID(userId)
 
     db.get().collection('users').findOne({'_id': objectId}, (err, user) => {
-        if(err)
+        if(err) {
+            logger.error(err)
             return res.status(404).send({error: err})
-        else if(user) {
-            db.get().collection('alerts').find({'cameraId': {$in: user.cameras}}, (err, docs) => {
+        } else if(user) {
+            db.get().collection('alerts').find({'cameraId': {$in: user.cameras}}).toArray((err, docs) => {
                 if (err)
                     return res.status(404).send({error: err})
-                else
+                else if(docs)
                     return res.status(200).send(docs)
             })
-            // var requests = user.cameras.map(cameraId => getCameraAlerts(cameraId))
-            //
-            // Promise.all(requests)
-            //     .then(cameras => res.status(200).send(cameras))
-            //     .catch(err => res.status(404).send({error: err}))
         } else
             return res.status(400).send({message: `There is no user with id - ${userId}`})
     })

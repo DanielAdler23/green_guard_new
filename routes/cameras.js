@@ -131,7 +131,7 @@ router.post('/setRule/:cameraId', (req, res) => {
 
     var newRule = {
         'inOut': req.body.inOut == 0 ? 0 : req.body.inOut == 1 ? 1 : null,
-        'polygon': req.body.polygon ? JSON.parse(req.body.polygon) : []
+        'polygon': req.body.polygon ? req.body.polygon : []
     }
 
     var cameras = db.get().collection('cameras')
@@ -233,7 +233,6 @@ router.post('/cameraAlert/:cameraId', upload.array('file', 12), (req, res) => {
                     }
                 ]
             }
-
             db.get().collection('alerts').insertOne(newAlert)
             db.get().collection('cameras').findOne({'id': cameraId}, (err, doc) => {
                 if(err)
