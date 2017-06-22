@@ -130,7 +130,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 
     $scope.getUsersCameras = function(){
         var userId = $cookies.get("userId")
-        window.location.href ="camaras.html"
+        window.location.href ="cameras.html"
         // $.ajax({
         //     type: "GET",
         //     url: `${environment}/api/users/getUsersCameras/${userId}`,
@@ -158,8 +158,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
         // })
     }
 
-
-    $scope.getAllCamaras = function(){
+    $scope.getAllcameras = function(){
         $.ajax({
             type: "GET",
             url: `${environment}/api/cameras/getAll`,
@@ -225,7 +224,7 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                     '<td id="cameraId">' + camera.id + '</td>' +
                     '<td id="rename"><input></td>' +
                     '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
-                    '<td id="status"><button>Active</button></td>' +
+                    '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
                     '<td id="save"><button>save</button></td>' +
                     '</tr>'
                 )
@@ -271,6 +270,23 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                 window.location.href ="cameraPage.html"
             }
         });
+    }
+
+    $scope.startCamera = function(){
+        var cameraId = $cookies.get("cameraId")
+        console.log(`Start Camera - ${cameraId}`)
+
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/startCamera/${cameraId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(err) {
+                console.log(err)
+            }
+        })
     }
 }]);
 
@@ -336,22 +352,6 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
             console.log("Point " + i + " - X: " + polygon[i].x + " Y: " + polygon[i].y)
     }
 
-    $scope.startCamera = function(cameraId){
-        var cameraId = $cookies.get("cameraId")
-        console.log(`Start Camera - ${cameraId}`)
-
-        $.ajax({
-            type: "GET",
-            url: `${environment}/api/cameras/startCamera/${cameraId}`,
-            cache: false,
-            success: function(data) {
-                console.log(data)
-            },
-            error: function(err) {
-                console.log(err)
-            }
-        })
-    }
 }])
 
 
