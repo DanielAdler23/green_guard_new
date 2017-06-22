@@ -1,4 +1,4 @@
-const environment = 'http://localhost:3000'
+const environment = 'http://172.20.10.5:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -230,7 +230,7 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                 )
             }
             init=false
-            var table = document.body
+            var table = document.querySelector('#table')
             $compile(table)($scope)
             // $scope.$digest()
         }
@@ -252,6 +252,7 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
             }
         });
     }
+
     $scope.defineArea = function (cameraId) {
         console.log('Get Camera')
         $.ajax({
