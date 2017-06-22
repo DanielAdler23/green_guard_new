@@ -1,4 +1,4 @@
-const environment = 'http://172.20.10.8:3000'
+const environment = 'http://localhost:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -178,24 +178,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             }
         });
     };
-    $scope.getCamera = function(cameraId){
-        console.log('Get Camera')
-        $.ajax({
-            type: "GET",
-            url: `${environment}/api/cameras/getCamera/${cameraId}`,
-            cache: false,
-            success: function(data) {
-                console.log(data)
-                $cookies.put("cameraId", data.id)
-                $cookies.put("cameraPicture", data.picture)
-                $cookies.put("cameraIp", data.ip)
-                $cookies.put("cameraPort", data.port)
-                if(data.name)
-                    $cookies.put("cameraName", data.name)
-                window.location.href ="cameraPage.html"
-            }
-        });
-    };
+
     $scope.attachNewCamera = function(){
         const userId = $cookies.get("userId")
         $.ajax({
@@ -205,8 +188,6 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             success: function(cameras) {
                 console.log(cameras);
                 for (var cam of cameras){
-
-
                     var gallery = document.createElement('div')
                     gallery.id = "galery"
                     gallery.style.float = "left"
@@ -229,31 +210,39 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 
 
 green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
-    $scope.init = function () {
-        var cameras = $cookies.get("cameras")
-        console.log( JSON.parse(cameras))
-        $('table').append(
-             '<tr>'+
-                '<td id="checkbox"><input type="checkbox"></td>'+
-                '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>'+
-                '<td id="cameraName"></td>'+
-                '<td id="cameraId">cameras[0].id</td>'+
-                '<td id="rename"><input></td>'+
-                '<td id="define area"><button id='+cameras.id+'ng-click="defineArea(event)">set area</button></td>'+
-                '<td id="status"><button>Active</button></td>'+
-                '<td id="save"><button>save</button></td>'+
-            '</tr>'
-
-        )
+    $scope.init1 = function () {
+        var x = $cookies.get("cameras")
+        var cameras = JSON.parse(x)
+        // console.log(cameras)
+        if(init){
+            for (var camera of cameras) {
+                console.log(camera.id)
+                $('table').append(
+                    '<tr>' +
+                    '<td id="checkbox"><input type="checkbox"></td>' +
+                    '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                    '<td id="cameraName"></td>' +
+                    '<td id="cameraId">' + camera.id + '</td>' +
+                    '<td id="rename"><input></td>' +
+                    '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
+                    '<td id="status"><button>Active</button></td>' +
+                    '<td id="save"><button>save</button></td>' +
+                    '</tr>'
+                )
+            }
+            init=false
+            var table = document.body
+            $compile(table)($scope)
+            // $scope.$digest()
+        }
     }
-    
+
     $scope.addCamera = function () {
         console.log($scope.add)
         console.log("abc")
         const userId = $cookies.get("userId")
 
         console.log(userId)
-        console.log(cameraId)
         $.ajax({
             type: "post",
             url: `${environment}/api/users/attachCameraToUser/${userId}`,
@@ -264,9 +253,25 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
             }
         });
     }
-    $scope.defineArea = function () {
-
+    $scope.defineArea = function (cameraId) {
+        console.log('Get Camera')
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/getCamera/${cameraId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+                $cookies.put("cameraId", data.id)
+                $cookies.put("cameraPicture", data.picture)
+                $cookies.put("cameraIp", data.ip)
+                $cookies.put("cameraPort", data.port)
+                // if(data.name)
+                //     $cookies.put("cameraName", data.name)
+                window.location.href ="cameraPage.html"
+            }
+        });
     }
+
 
 }]);
 
@@ -347,7 +352,7 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
 
         $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
                 "inOut": $scope.inOut,
-                "polygon": JSON.stringify(polygon)
+                "polygon": polygon
             },
             function(data, status){
                 alert("Data: " + data.message + "\nStatus: " + status);

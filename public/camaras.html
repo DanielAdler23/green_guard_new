@@ -82,22 +82,21 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">cameras</h1>
-                <div id="cameraTable" ng-init="init()">
+                <div ng-init="init1()" >
                     <button> del</button>
                     <input id="addCamear" ng-model="add">
                     <button ng-click="addCamera()"> add</button>
                     <br><br>
                     <table id="table">
                         <tr>
-                            <td><input type="checkbox"></td>
-                            <td>icon</td>
-                            <td>camera Name</td>
-                            <td>camera ID</td>
-                            <td>rename</td>
-                            <td>define area</td>
-                            <td>status</td>
+                            <th><input type="checkbox"></th>
+                            <th>icon</th>
+                            <th>camera Name</th>
+                            <th>camera ID</th>
+                            <th>rename</th>
+                            <th>define area</th>
+                            <th>status</th>
                         </tr>
-
                     </table>
                 </div>
             </div>
