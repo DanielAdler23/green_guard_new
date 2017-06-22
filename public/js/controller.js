@@ -1,4 +1,4 @@
-const environment = 'http://172.20.10.5:3000'
+const environment = 'http://172.20.10.8:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -319,7 +319,6 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
                     $cookies.put("cameraName", data.name)
                 else
                     $cookies.remove("cameraName")
-
                 window.location.href ="cameraPage.html"
             }
         })
@@ -336,6 +335,10 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
                 "polygon": polygon
             },
             function(data, status){
+                if(status == 200){
+                    window.location.href ="cameras.html"
+                }
+                if(status == 400)
                 alert("Data: " + data.message + "\nStatus: " + status);
             })
 
