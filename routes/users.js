@@ -44,10 +44,19 @@ router.post('/login', (req, res) => {
         else {
             var objectId = new ObjectID(user._id)
             // res.cookie('userId', objectId.toString(), { maxAge: 900000, encode: String })
-            var data = {'redirect': 'home.html', 'userId': objectId.toString()}
-            res.header('Content-Length', data.length)
-            res.send(JSON.stringify(data))
-            return res.end()
+
+            var requests = user.cameras.map(cameraId => getUserCamera(cameraId))
+
+            Promise.all(requests)
+                .then(cameras => {
+                    var data = {'redirect': 'home.html', 'userId': objectId.toString(), 'cameras': cameras}
+                    res.header('Content-Length', data.length)
+                    res.send(JSON.stringify(data))
+                    return res.end()
+                    // res.status(200).send(cameras)
+                })
+                .catch(err => res.status(404).send({error: err}))
+            // return res.end()
         }
     })
 })
@@ -113,16 +122,30 @@ router.post('/attachCameraToUser/:userId', (req,res) => {
     var cameraId = req.body.cameraId
     var objectId = new ObjectID(userId)
 
-    db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$push: { cameras: cameraId }}, (err, user) => {
-        if(err)
+    db.get().collection('cameras').findOne({'id': cameraId}, (err, doc) => {
+        if(err) {
+            logger.error({error: err})
             return res.status(404).send({error: err})
-        else
-            db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'userId': userId}}, (err, doc) => {
-                if(err)
+        } else if(doc.userId) {
+            logger.info(`Camera ${cameraId} is already attached to a user`)
+            return res.status(605).send({message: `Camera ${cameraId} is already attached to a user`})
+        } else {
+            db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$addToSet: { cameras: cameraId }}, (err, user) => {
+                if(err) {
+                    logger.error({error: err})
                     return res.status(404).send({error: err})
-                else
-                    return res.status(200).send({message: `Camera attached to user - ${userId}`})
+                } else
+                    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'userId': userId}}, (err, doc) => {
+                        if(err) {
+                            logger.error({error: err})
+                            return res.status(404).send({error: err})
+                        } else {
+                            logger.info(`Camera - ${cameraId} attached to user - ${userId}`)
+                            return res.status(200).send(doc)
+                        }
+                    })
             })
+        }
     })
 })
 
@@ -160,11 +183,17 @@ router.get('/getUsersAlerts/:userId', (req, res) => {
         if(err)
             return res.status(404).send({error: err})
         else if(user) {
-            var requests = user.cameras.map(cameraId => getCameraAlerts(cameraId))
-
-            Promise.all(requests)
-                .then(cameras => res.status(200).send(cameras[0]))
-                .catch(err => res.status(404).send({error: err}))
+            db.get().collection('alerts').find({'cameraId': {$in: user.cameras}}, (err, docs) => {
+                if (err)
+                    return res.status(404).send({error: err})
+                else
+                    return res.status(200).send(docs)
+            })
+            // var requests = user.cameras.map(cameraId => getCameraAlerts(cameraId))
+            //
+            // Promise.all(requests)
+            //     .then(cameras => res.status(200).send(cameras))
+            //     .catch(err => res.status(404).send({error: err}))
         } else
             return res.status(400).send({message: `There is no user with id - ${userId}`})
     })
@@ -185,7 +214,7 @@ const getCameraAlerts = (cameraId) => new Promise((resolve, reject) => {
         if (err)
             reject(err)
         else {
-            console.log(docs)
+            // console.log(docs)
             resolve(docs)
         }
     })
