@@ -128,35 +128,6 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
 
 green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$cookies,$compile) {
 
-    $scope.getUsersCameras = function(){
-        var userId = $cookies.get("userId")
-        window.location.href ="cameras.html"
-        // $.ajax({
-        //     type: "GET",
-        //     url: `${environment}/api/users/getUsersCameras/${userId}`,
-        //     cache: false,
-        //     success: function(cameras) {
-        //         $scope.cameras = cameras
-        //         console.log(cameras)
-        //         $('.nav-second-level').remove('.user-camera')
-        //
-        //         if(init) {
-        //             for (var camera of cameras) {
-        //                 if(camera) {
-        //                     $('.nav-second-level').append('<li class="user-camera">'
-        //                         + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + (camera.name ? camera.name : camera.id) + '</a>' +
-        //                         '</il>')
-        //                 }
-        //             }
-        //
-        //             var body = document.body
-        //             $compile(body)($scope)
-        //             $scope.$digest()
-        //             init = false
-        //         }
-        //     }
-        // })
-    }
 
     $scope.getAllcameras = function(){
         $.ajax({
@@ -210,33 +181,39 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 
 green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
     $scope.init1 = function () {
-        var x = $cookies.get("cameras")
-        var cameras = JSON.parse(x)
+        var userId = $cookies.get("userId")
         // console.log(cameras)
-            for (var camera of cameras) {
-                console.log(camera.id)
-                $('table').append(
-                    '<tr>' +
-                    '<td id="checkbox"><input type="checkbox"></td>' +
-                    '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
-                    '<td id="cameraName"></td>' +
-                    '<td id="cameraId">' + camera.id + '</td>' +
-                    '<td id="rename"><input></td>' +
-                    '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
-                    '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
-                    '<td id="save"><button>save</button></td>' +
-                    '</tr>'
-                )
-            }
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/users/getUsersCameras/${userId}`,
+            cache: false,
+            success: function(cameras) {
+                console.log(cameras)
+                for (var camera of cameras) {
+                    console.log(camera.id)
+                    $('table').append(
+                        '<tr>' +
+                        '<td id="checkbox"><input type="checkbox"></td>' +
+                        '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                        '<td id="cameraName"></td>' +
+                        '<td id="cameraId">' + camera.id + '</td>' +
+                        '<td id="rename"><input></td>' +
+                        '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
+                        '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
+                        '<td id="save"><button>save</button></td>' +
+                        '</tr>'
+                    )}
+                var table = document.querySelector('#table')
+                $compile(table)($scope)
+                // $scope.$digest()
 
-            var table = document.querySelector('#table')
-            $compile(table)($scope)
-            // $scope.$digest()
+            }
+        })
+
     }
 
     $scope.addCamera = function () {
         console.log($scope.add)
-        console.log("abc")
         const userId = $cookies.get("userId")
 
         console.log(userId)
