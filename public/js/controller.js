@@ -267,6 +267,7 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                 $cookies.put("cameraPort", data.port)
                 // if(data.name)
                 //     $cookies.put("cameraName", data.name)
+                var cameraName = $cookies.get("cameraName")
                 window.location.href ="cameraPage.html"
             }
         });
@@ -281,8 +282,8 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
         console.log('Initialize')
         var userId = $cookies.get("userId")
         var cameraId = $cookies.get("cameraId")
-        var cameraIp = $cookies.get("cameraIp")
-        var cameraPort = $cookies.get("cameraPort")
+        // var cameraIp = $cookies.get("cameraIp")
+        // var cameraPort = $cookies.get("cameraPort")
         var cameraPicture = $cookies.get("cameraPicture")
         var cameraName = $cookies.get("cameraName")
         var cameraData = $cookies.get("cameraData")
@@ -294,31 +295,6 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
 
         $('#myImage').attr("src", cameraPicture)
 
-        $.ajax({
-            type: "GET",
-            url: `${environment}/api/users/getUsersCameras/${userId}`,
-            cache: false,
-            success: function(cameras) {
-                $scope.cameras = cameras
-                console.log(cameras)
-                $('.nav-second-level').remove('.user-camera')
-
-                if(init) {
-                    for (var camera of cameras) {
-                        if(camera) {
-                            $('.nav-second-level').append('<li class="user-camera">'
-                                + '<a ng-click="getCamera(' + camera.id + ')"><i class="fa fa-user- fa-fw"></i>' + (camera.name ? camera.name : camera.id) + '</a>' +
-                                '</il>')
-                        }
-                    }
-
-                    var body = document.body
-                    $compile(body)($scope)
-                    $scope.$digest()
-                    init = false
-                }
-            }
-        })
     }
 
     $scope.getCamera = function(cameraId){
@@ -333,6 +309,7 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
                 $cookies.put("cameraPicture", data.picture)
                 $cookies.put("cameraIp", data.ip)
                 $cookies.put("cameraPort", data.port)
+
 
                 if(data.name)
                     $cookies.put("cameraName", data.name)
@@ -388,8 +365,6 @@ green.controller('notifications', ['$scope', '$cookies', '$compile', function($s
     $scope.getUserNotifications = function() {
 
     }
-
-
 
     $scope.initializePage = function() {
         console.log('Initialize')
