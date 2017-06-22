@@ -213,7 +213,6 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
         var x = $cookies.get("cameras")
         var cameras = JSON.parse(x)
         // console.log(cameras)
-        if(init){
             for (var camera of cameras) {
                 console.log(camera.id)
                 $('table').append(
@@ -229,11 +228,10 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                     '</tr>'
                 )
             }
-            init=false
+
             var table = document.querySelector('#table')
             $compile(table)($scope)
             // $scope.$digest()
-        }
     }
 
     $scope.addCamera = function () {
@@ -248,7 +246,21 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
             cache: false,
             data:{"cameraId": $scope.add},
             success: function(data) {
-                console.log(data)
+                console.log(data.value.id)
+                $('table').append(
+                    '<tr>' +
+                    '<td id="checkbox"><input type="checkbox"></td>' +
+                    '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                    '<td id="cameraName"></td>' +
+                    '<td id="cameraId">' + data.value.id + '</td>' +
+                    '<td id="rename"><input></td>' +
+                    '<td id="define area"><button id=' + data.value.id + ' ng-click="defineArea('+data.value.id+')">set area</button></td>' +
+                    '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
+                    '<td id="save"><button>save</button></td>' +
+                    '</tr>'
+                )
+                var table = document.querySelector('#table')
+                $compile(table)($scope)
             }
         });
     }
