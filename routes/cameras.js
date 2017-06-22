@@ -28,6 +28,19 @@ router.use((req, res, next) => {
     next()
 })
 
+function updateCamerasPhoto(cameraId, img) {
+    utils.savePhotoBase64(img, (err, url) => {
+        if(err) {
+            logger.error(err)
+            return res.status(404).send({message: `Failed to save camera's photo to image database`, error: err})
+        } else {
+            db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'picture': url}}, (err, doc) => {
+                if(err) logger.error('Failed to save camera photo')
+                return null
+            })
+        }
+    })
+}
 
 router.get('/', (req, res) => {
     res.header('Content-Type', 'text/plain')
@@ -60,6 +73,8 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
             return res.status(404).send({error: err})
         } else if(doc) {
             logger.info(`Camera ${req.body.cameraId} already exists in database`)
+            var photoBase64 = req.files[0].buffer.toString('base64')
+            updateCamerasPhoto(req.body.cameraId, photoBase64)
             return res.status(605).send({message: 'Camera already exists in database'})
         } else {
             var photoBase64 = req.files[0].buffer.toString('base64')
@@ -279,6 +294,8 @@ router.post('/cameraAlertPhoto/:alertId', upload.array('file', 12), (req, res) =
         }
     })
 })
+
+
 
 
 

@@ -272,8 +272,6 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
             }
         });
     }
-
-
 }]);
 
 green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
