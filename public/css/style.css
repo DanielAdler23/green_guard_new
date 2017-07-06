@@ -13,7 +13,8 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background-color: #285943;
+    //background-color: #285943;
+    background-image: url("../images/back.jpg");
 }
 
 
@@ -68,7 +69,6 @@ html {
 }
 
 body {
-    background-color: #7DBA84;
     color: #606468;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
@@ -205,16 +205,7 @@ input[type='submit'] {
 }
 
 
-p {
-    margin-bottom: 24px;
-    margin-bottom: 1.5rem;
-    margin-top: 24px;
-    margin-top: 1.5rem;
-}
 
-.text--center {
-    text-align: center;
-}
 
 
 

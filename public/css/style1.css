@@ -1,6 +1,12 @@
 body {
     background-color: #222;
 }
+.navbar-brand{
+    min-height: 50%;
+    font-size: 250%;
+    font-family: AppleGothic;
+}
+
 #wrapper {
     width: 100%;
 }
@@ -73,9 +79,7 @@ body {
     padding-right: 0;
     background-color: #222;
 }
-.sidebar .sidebar-search {
-    padding: 15px;
-}
+
 .sidebar ul li {
     border-bottom: 1px solid #222;
 }
@@ -380,3 +384,15 @@ table.dataTable thead .sorting:after {
 #table, td,th{
     border: 1px solid black;
 }
+
+.text--center {
+    text-align: center;
+}
+
+p {
+    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
+    margin-top: 24px;
+    margin-top: 1.5rem;
+}
+
