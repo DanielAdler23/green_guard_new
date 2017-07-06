@@ -1,4 +1,4 @@
-const environment = 'http://172.20.10.8:3000'
+const environment = 'http://192.168.1.8:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -95,6 +95,7 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
             cache: false,
             success: function () {
                 console.log("Form Data Sent successfully");
+                window.location.href = "index.html"
             }
         });
     };
