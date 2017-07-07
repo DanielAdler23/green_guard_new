@@ -59,7 +59,7 @@
                         <a href="#"><i class="fa fa-dashboard fa-fw"></i> Profile</a>
                     </li>
                     <li>
-                        <a ng-click="getUsersCameras()" ><i class="fa fa-video-camera fa-fw"></i> Cameras</a>
+                        <a href ="cameras.html"><i class="fa fa-video-camera fa-fw"></i> Cameras</a>
                     </li>
                     <!--<li>-->
                         <!--<a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>-->
@@ -84,10 +84,10 @@
     </nav>
     <div id="page-wrapper">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" ng-init="initializePage()" >
                 <div>
                     <h1 class="page-header">{{cameraTitle}}</h1>
-                    <div id="imgHolder">
+                    <div id="imgHolder" >
                         <img id="myImage" ng-click="showCoords(event)">
                         <canvas id= "canvas" width="640" height="480"> </canvas>
                     </div>

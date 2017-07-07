@@ -183,20 +183,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
    }]);
 
 
-green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
-
-    $scope.open = function() {
-        $scope.showModal = true;
-    };
-
-    $scope.ok = function() {
-        $scope.showModal = false;
-    };
-
-    $scope.cancel = function() {
-        $scope.showModal = false;
-    };
-
+green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
 
     $scope.initUserCameras = function () {
         var userId = $cookies.get("userId")
@@ -224,7 +211,6 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                 var table = document.querySelector('#table')
                 $compile(table)($scope)
                 // $scope.$digest()
-
             }
         })
 
@@ -250,7 +236,8 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
                     '<td id="cameraId">' + data.value.id + '</td>' +
                     '<td id="rename"><input></td>' +
                     '<td id="define area"><button id=' + data.value.id + ' ng-click="defineArea('+data.value.id+')">set area</button></td>' +
-                    '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
+                    '<td id="LifePicture"><button class="btn" id="start" ng-click="getLifePicture('+data.value.id+')">Get Picture</button></td>'+
+                    '<td id="status"><button ng-click="startCamera('+data.value.id+')">Active</button></td>' +
                     '<td id="save"><button>save</button></td>' +
                     '</tr>'
                 )
@@ -281,22 +268,43 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
     }
     $scope.getLifePicture = function (cameraId) {
         console.log(cameraId)
+        var userId = $cookies.get("userId")
+
         $.ajax({
             type: "GET",
-            url: `${environment}/api/cameras/getPicture/${cameraId}`,
+            url: `${environment}/api/users/getUsersCameras/${userId}`,
             cache: false,
-            success: function(data) {
-                console.log(data)
-                $cookies.put("cameraId", data.id)
-                $cookies.put("cameraPicture", data.picture)
-                $cookies.put("cameraIp", data.ip)
-                $cookies.put("cameraPort", data.port)
-                // if(data.name)
-                //     $cookies.put("cameraName", data.name)
-                var cameraName = $cookies.get("cameraName")
-                window.location.href ="cameraPage.html"
-            }
-        });
+            success: function(cameras) {
+                console.log(cameras[0].picture)
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('This is an alert title')
+                        .textContent('You can specify some description text in here.')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Got it!')
+                );
+
+                }
+        })
+
+        // $.ajax({
+        //     type: "GET",
+        //     url: `${environment}/api/cameras/getPicture/${cameraId}`,
+        //     cache: false,
+        //     success: function(data) {
+        //         console.log(data)
+        //         $cookies.put("cameraId", data.id)
+        //         $cookies.put("cameraPicture", data.picture)
+        //         $cookies.put("cameraIp", data.ip)
+        //         $cookies.put("cameraPort", data.port)
+        //         // if(data.name)
+        //         //     $cookies.put("cameraName", data.name)
+        //         var cameraName = $cookies.get("cameraName")
+        //         window.location.href ="cameraPage.html"
+        //     }
+        // });
     }
 
 
@@ -316,7 +324,7 @@ green.controller('cameras', ['$scope', '$cookies', '$compile', function($scope, 
             }
         })
     }
-}]);
+});
 
 green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
 
