@@ -296,6 +296,14 @@ router.post('/cameraAlertPhoto/:alertId', upload.array('file', 12), (req, res) =
 })
 
 
+router.get('/getAlert/:alertId', (req, res) => {
+    var alertId = req.params.alertId
+    var alerts = db.get().collection('alerts')
+    alerts.findOne({'alertId': alertId}, (err, doc) => {
+        err ? res.status(400).send({error: err}) : res.status(200).send({doc})
+    })
+})
+
 
 
 

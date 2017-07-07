@@ -412,7 +412,7 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
                         '<tr>' +
                         `<td id="cameraId">${alert.cameraId}</td>` +
                         `<td id="alertTime">${date}</td>` +
-                        '<td><button class="btn" id="start" data-ng-click="createCarousel()">Start</button></td>' +
+                        `<td><button class="btn" id="start" data-ng-click='createCarousel(${alert.alertId})'>Show Pictures</button></td>` +
                         '</tr>'
                     )
                 }
@@ -423,51 +423,21 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
     }
 
 
-    $scope.createCarousel = function(ev) {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('This is an alert title')
-                .textContent('You can specify some description text in here.')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Got it!')
-                .targetEvent(ev)
-        );
+    $scope.createCarousel = function(alertId, ev) {
+        $cookies.put("alertId", alertId)
+        $mdDialog.show({
+            templateUrl: 'alertCarousel.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+        })
+            .then(function(answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+                $scope.status = 'You cancelled the dialog.';
+            });
     }
-// <div id="myCarousel" class="carousel slide" data-ride="carousel">
-//         <!-- Indicators -->
-//         <ol class="carousel-indicators">
-//         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-//         <li data-target="#myCarousel" data-slide-to="1"></li>
-//         <li data-target="#myCarousel" data-slide-to="2"></li>
-//         </ol>
-//
-//         <!-- Wrapper for slides -->
-//                          <div class="carousel-inner">
-//         <div class="item active">
-//         <img src="la.jpg" alt="Los Angeles">
-//         </div>
-//
-//         <div class="item">
-//         <img src="chicago.jpg" alt="Chicago">
-//         </div>
-//
-//         <div class="item">
-//         <img src="ny.jpg" alt="New York">
-//         </div>
-//         </div>
-//
-//         <!-- Left and right controls -->
-//     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-//         <span class="glyphicon glyphicon-chevron-left"></span>
-//         <span class="sr-only">Previous</span>
-//         </a>
-//         <a class="right carousel-control" href="#myCarousel" data-slide="next">
-//         <span class="glyphicon glyphicon-chevron-right"></span>
-//         <span class="sr-only">Next</span>
-//         </a>
-//         </div>
+
 
 
 
@@ -490,6 +460,34 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
                     $cookies.remove("cameraName")
 
                 window.location.href ="cameraPage.html"
+            }
+        })
+    }
+})
+
+
+green.controller('carousel', function($scope, $cookies, $compile) {
+
+    $scope.initializeCarousel = () => {
+        var alertId = $cookies.get("alertId")
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/getAlert/${alertId}`,
+            cache: false,
+            success: function(alert) {
+                for (var pic in alert.doc.pictures) {
+                    var item
+                    if(pic == 0) {
+                        item = '<div class="item active">' +
+                                        `<img src=${alert.doc.pictures[pic]['photo']} alt="Los Angeles">` +
+                                    '</div>'
+                    } else {
+                        item = '<div class="item">' +
+                                        `<img src=${alert.doc.pictures[pic]['photo']} alt="Los Angeles">` +
+                                    '</div>'
+                    }
+                    $('.carousel-inner').append(item)
+                }
             }
         })
     }
