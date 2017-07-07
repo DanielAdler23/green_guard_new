@@ -1,4 +1,4 @@
-const environment = 'http://192.168.1.8:3000'
+const environment = 'http://localhost:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 var init = true
 var polygon = []
@@ -81,7 +81,7 @@ if (location.href.split("/").slice(-1) == "cameraPage.html"){
 }
 
 
-var green = angular.module('green', ['ngCookies', 'ngFlash']);
+var green = angular.module('green', ['ngCookies', 'ngFlash', 'ngMaterial']);
 
 
 green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $cookies, Flash) {
@@ -352,7 +352,7 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
 
 
 
-green.controller('notifications', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
+green.controller('notifications', function($scope, $cookies, $compile, $mdDialog) {
 
     $scope.getUsersNotifications = function() {
         console.log('Getting users notifications')
@@ -363,32 +363,70 @@ green.controller('notifications', ['$scope', '$cookies', '$compile', function($s
             url: `${environment}/api/users/getUsersAlerts/${userId}`,
             cache: false,
             success: function(data) {
-                console.log(data)
-                if(data.length > 0) {
-                    for (var alert of data) {
-                        $('table').append(
-                            '<tr>' +
-                            '<td id="checkbox"><input type="checkbox"></td>' +
-                            '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
-                            '<td id="cameraName"></td>' +
-                            '<td id="cameraId">' + alert.alertId + '</td>' +
-                            '<td id="rename"><input></td>' +
-                            // '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea(' + camera.id + ')">set area</button></td>' +
-                            // '<td id="status"><button ng-click="startCamera()">Active</button></td>' +
-                            '<td id="save"><button>save</button></td>' +
-                            '</tr>'
-                        )
-                    }
-                    var table = document.querySelector('#table')
-                    $compile(table)($scope)
+                for (var alert of data) {
+                    var date = new Date(parseInt(alert.timestamp) * 1000).toISOString().replace(/T|Z|.000/gi, " ")
+                    $('table').append(
+                        '<tr>' +
+                        `<td id="cameraId">${alert.cameraId}</td>` +
+                        `<td id="alertTime">${date}</td>` +
+                        '<td><button class="btn" id="start" data-ng-click="createCarousel()">Start</button></td>' +
+                        '</tr>'
+                    )
                 }
+                var table = document.querySelector('#table')
+                $compile(table)($scope)
             }
         })
-
-
-        // $('#myImage').attr("src", cameraPicture)
-
     }
+
+
+    $scope.createCarousel = function(ev) {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('This is an alert title')
+                .textContent('You can specify some description text in here.')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Got it!')
+                .targetEvent(ev)
+        );
+    }
+// <div id="myCarousel" class="carousel slide" data-ride="carousel">
+//         <!-- Indicators -->
+//         <ol class="carousel-indicators">
+//         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+//         <li data-target="#myCarousel" data-slide-to="1"></li>
+//         <li data-target="#myCarousel" data-slide-to="2"></li>
+//         </ol>
+//
+//         <!-- Wrapper for slides -->
+//                          <div class="carousel-inner">
+//         <div class="item active">
+//         <img src="la.jpg" alt="Los Angeles">
+//         </div>
+//
+//         <div class="item">
+//         <img src="chicago.jpg" alt="Chicago">
+//         </div>
+//
+//         <div class="item">
+//         <img src="ny.jpg" alt="New York">
+//         </div>
+//         </div>
+//
+//         <!-- Left and right controls -->
+//     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+//         <span class="glyphicon glyphicon-chevron-left"></span>
+//         <span class="sr-only">Previous</span>
+//         </a>
+//         <a class="right carousel-control" href="#myCarousel" data-slide="next">
+//         <span class="glyphicon glyphicon-chevron-right"></span>
+//         <span class="sr-only">Next</span>
+//         </a>
+//         </div>
+
+
 
     $scope.getCamera = function(cameraId){
         console.log('Get Camera')
@@ -412,7 +450,7 @@ green.controller('notifications', ['$scope', '$cookies', '$compile', function($s
             }
         })
     }
-}])
+})
 
 
 function toggleState (cameraId) {
@@ -432,3 +470,5 @@ function toggleState (cameraId) {
         }
     })
 }
+
+
