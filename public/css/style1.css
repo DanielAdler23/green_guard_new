@@ -396,3 +396,7 @@ p {
     margin-top: 1.5rem;
 }
 
+#myCarousel {
+    z-index: 1000;
+    position:relative;
+}
