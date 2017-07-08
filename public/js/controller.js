@@ -122,9 +122,9 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
                 console.log(error.responseText)
                 var id = Flash.create('info', error.responseText, 0, {class: 'custom-class', id: 'custom-id'}, true)
             }
-        });
+        })
     }
-}]);
+}])
 
 
 
@@ -150,8 +150,8 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                         '</il>' )
                 }
             }
-        });
-    };
+        })
+    }
 
     $scope.attachNewCamera = function(){
         const userId = $cookies.get("userId")
@@ -160,7 +160,7 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
             url: `${environment}/api/cameras/getFreeCameras`,
             cache: false,
             success: function(cameras) {
-                console.log(cameras);
+                console.log(cameras)
                 for (var cam of cameras){
                     var gallery = document.createElement('div')
                     gallery.id = "galery"
@@ -178,9 +178,9 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
                 $compile(gallery)($scope);
                 $scope.$digest();
             }
-        });
+        })
     }
-   }]);
+   }])
 
 
 green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
@@ -209,7 +209,6 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                     )}
                 var table = document.querySelector('#table')
                 $compile(table)($scope)
-                // $scope.$digest()
             }
         })
 
@@ -257,57 +256,43 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                 $cookies.put("cameraPicture", data.picture)
                 $cookies.put("cameraIp", data.ip)
                 $cookies.put("cameraPort", data.port)
-                // if(data.name)
-                //     $cookies.put("cameraName", data.name)
+
                 var cameraName = $cookies.get("cameraName")
                 window.location.href ="cameraPage.html"
             }
         });
     }
-    $scope.getLifePicture = function (cameraId) {
-        console.log(cameraId)
-        var userId = $cookies.get("userId")
 
+    $scope.getLivePicture = function (cameraId, ev) {
+        console.log('getLivePicture function')
+        $cookies.put('liveImageId', cameraId)
         $.ajax({
             type: "GET",
-            url: `${environment}/api/users/getUsersCameras/${userId}`,
+            url: `${environment}/api/cameras/getLiveImage/${cameraId}`,
             cache: false,
-            success: function(cameras) {
-                console.log(cameras[0].picture)
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .parent(angular.element(document.querySelector('#popupContainer')))
-                        .clickOutsideToClose(true)
-                        .title('This is an alert title')
-                        .textContent('You can specify some description text in here.')
-                        .ariaLabel('Alert Dialog Demo')
-                        .ok('Got it!')
-                );
-
-                }
+            success: function(image) {
+                sessionStorage.setItem(`liveImage-${cameraId}`, image.message)
+                $mdDialog.show({
+                    templateUrl: 'liveImage.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                })
+                    .then(function(answer) {
+                        $scope.status = 'You said the information was "' + answer + '".';
+                    }, function() {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            },
+            error: function(err){
+                console.log(err)
+            }
         })
-
-        // $.ajax({
-        //     type: "GET",
-        //     url: `${environment}/api/cameras/getPicture/${cameraId}`,
-        //     cache: false,
-        //     success: function(data) {
-        //         console.log(data)
-        //         $cookies.put("cameraId", data.id)
-        //         $cookies.put("cameraPicture", data.picture)
-        //         $cookies.put("cameraIp", data.ip)
-        //         $cookies.put("cameraPort", data.port)
-        //         // if(data.name)
-        //         //     $cookies.put("cameraName", data.name)
-        //         var cameraName = $cookies.get("cameraName")
-        //         window.location.href ="cameraPage.html"
-        //     }
-        // });
     }
 
 
     $scope.startCamera = function(cameraId){
-        // var cameraId = $cookies.get("cameraId")
+
         console.log(`Start Camera - ${cameraId}`)
 
         $.ajax({
@@ -324,7 +309,7 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
     }
 });
 
-green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scope, $cookies, $compile) {
+green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scope, $cookies) {
 
     $scope.initializePage = function() {
         console.log('Initialize')
@@ -438,7 +423,6 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
 
 
 
-
     $scope.getCamera = function(cameraId){
         console.log('Get Camera')
         $.ajax({
@@ -464,7 +448,7 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
 })
 
 
-green.controller('carousel', function($scope, $cookies, $compile) {
+green.controller('carousel', function($scope, $cookies) {
 
     $scope.initializeCarousel = () => {
         var alertId = $cookies.get("alertId")
@@ -488,6 +472,20 @@ green.controller('carousel', function($scope, $cookies, $compile) {
                 }
             }
         })
+    }
+})
+
+
+green.controller('liveImage', function($scope, $cookies) {
+
+    console.log('controller - liveImage')
+
+    $scope.initializeCarousel = () => {
+        var liveImageId = $cookies.get("liveImageId")
+        var liveImage = sessionStorage.getItem(`liveImage-${liveImageId}`)
+        var image = 'data:image/png;base64,'+liveImage
+
+        setTimeout(function(){ $('.carousel-inner').append('<div class="item active">' + `<img src=${image}>` + '</div>'); }, 1000)
     }
 })
 
