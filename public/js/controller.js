@@ -53,7 +53,7 @@ function clear_canvas(){
     complete = false;
     document.getElementById('coordinates').value = '';
     start(true);
-    rerender()
+    start(false)
 }
 
 function draw(end){
@@ -161,11 +161,12 @@ function start(with_draw) {
     var img = new Image();
     var imageSrc = $.cookie('cameraPicture')
     img.src = imageSrc
-    canvas.setAttribute('data-imgsrc', imageSrc)
+
 
     ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     if(with_draw == true){
+        canvas.setAttribute('data-imgsrc', imageSrc)
         draw(false);
     }
 }
@@ -308,17 +309,20 @@ green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$
 green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
 
     $scope.initUserCameras = function () {
+        console.log('initUserCameras')
         var userId = $cookies.get("userId")
         $.ajax({
             type: "GET",
             url: `${environment}/api/users/getUsersCameras/${userId}`,
             cache: false,
             success: function(cameras) {
+                $('table').empty()
                 console.log(cameras)
                 for (var camera of cameras) {
-                console.log(camera.id)
-                    $('table').append(
-                        '<tr>' +
+                    console.log(camera.id)
+                    if(camera.status == 1) {
+                        $('table').append(
+                            '<tr>' +
                             '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
                             '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                             '<td id="cameraId">' + camera.id + '</td>' +
@@ -326,9 +330,24 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                             '<td id="rename"><input></td>' +
                             '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
                             '<td id="LifePicture"><button class="btn" ng-click="getLifePicture('+camera.id+')">Get Picture</button></td>'+
-                            '<td id="status"><button class="btn" ng-click="startCamera('+camera.id+')">Active</button></td>'+
-                        '</tr>'
-                    )}
+                            '<td><button id="statusOn" class="btn" ng-click="stopCamera('+camera.id+')">On</button></td>'+
+                            '</tr>'
+                        )
+                    } else {
+                        $('table').append(
+                            '<tr>' +
+                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
+                            '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                            '<td id="cameraId">' + camera.id + '</td>' +
+                            '<td id="cameraName"></td>' +
+                            '<td id="rename"><input></td>' +
+                            '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
+                            '<td id="LifePicture"><button class="btn" ng-click="getLifePicture('+camera.id+')">Get Picture</button></td>'+
+                            '<td><button id="statusOff" class="btn" ng-click="startCamera('+camera.id+')">Off</button></td>'+
+                            '</tr>'
+                        )
+                    }
+                }
                 var table = document.querySelector('#table')
                 $compile(table)($scope)
             }
@@ -423,6 +442,26 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
             cache: false,
             success: function(data) {
                 console.log(data)
+                $scope.initUserCameras()
+            },
+            error: function(err) {
+                console.log(err)
+            }
+        })
+    }
+
+
+    $scope.stopCamera = function(cameraId){
+
+        console.log(`Stop Camera - ${cameraId}`)
+
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/stopCamera/${cameraId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+                $scope.initUserCameras()
             },
             error: function(err) {
                 console.log(err)

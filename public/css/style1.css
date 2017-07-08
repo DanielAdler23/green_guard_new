@@ -626,3 +626,15 @@ p {
     z-index: 1000;
     position:relative;
 }
+
+#statusOn {
+    background-color: #3c763d;
+    color: white;
+    width: 80%;
+}
+
+#statusOff {
+    background-color: #761c19;
+    color: white;
+    width: 80%;
+}

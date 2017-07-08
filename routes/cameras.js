@@ -90,7 +90,7 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
                         'port': req.body.port,
                         'added': Date.now(),
                         'picture': url,
-                        'status': false
+                        'status': 0
                     }
 
                     db.get().collection('cameras').insertOne(newCamera, (err, result) => {
@@ -205,7 +205,47 @@ router.get('/startCamera/:cameraId', (req, res) => {
             var cameraUrl = `http://${doc.ip}:${doc.port}/startCamera`
             logger.info(cameraUrl)
             axios.get(cameraUrl)
-                .then(response => res.status(200).send({message: `Camera started - ${cameraId}`}))
+                .then(response => {
+                    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'status': 1}}, (err, doc) => {
+                        if(err)
+                            return res.status(404).send({error: err})
+                        else if(doc.value)
+                            return res.status(200).send({message: `Camera started - ${cameraId}`})
+                        else
+                            return res.status(302).send({'message': `There is no camera with id - ${cameraId}`})
+                    })
+                })
+                .catch(err => res.status(404).send({message: 'camera not online', err: err.message}))
+        } else
+            res.status(404).send({message: `No camera with id - ${cameraId}`})
+    })
+})
+
+
+router.get('/stopCamera/:cameraId', (req, res) => {
+    var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
+    var cameras = db.get().collection('cameras')
+
+    logger.info(`Stop camera - ${cameraId}`)
+
+    cameras.findOne({'id': cameraId}, (err, doc) => {
+        if(err)
+            res.status(400). send({error: err})
+        else if(doc) {
+            var cameraUrl = `http://${doc.ip}:${doc.port}/stopCamera`
+            logger.info(cameraUrl)
+            axios.get(cameraUrl)
+                .then(response => {
+                    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'status': 0}}, (err, doc) => {
+                        if(err)
+                            return res.status(404).send({error: err})
+                        else if(doc.value)
+                            return res.status(200).send({message: `Camera stopped - ${cameraId}`})
+                        else
+                            return res.status(302).send({'message': `There is no camera with id - ${cameraId}`})
+                    })
+                })
                 .catch(err => res.status(404).send({message: 'camera not online', err: err.message}))
         } else
             res.status(404).send({message: `No camera with id - ${cameraId}`})
@@ -242,11 +282,21 @@ router.post('/editRule/:cameraId', (req, res) => {
 
 
 router.get('/cameraStatus/:cameraId/:status', (req, res) => {
-    // console.log('Getting picture from database')
-    // var cameras = db.get().collection('cameras')
-    // cameras.find({}).toArray((err, docs) => {
-    //     err ? res.status(404).send({error: err}) : res.status(200).send(docs)
-    // })
+    var cameraId = req.params.cameraId
+    var status = req.params.status
+
+    logger.info(`Changing camera ${cameraId} status to - ${status}`)
+
+    var cameras = db.get().collection('cameras')
+
+    db.get().collection('cameras').findOneAndUpdate({'id': cameraId}, {$set: {'status': parseInt(status)}}, (err, doc) => {
+        if(err)
+            return res.status(404).send({error: err})
+        else if(doc.value)
+            return res.status(200).send(doc.value)
+        else
+            return res.status(302).send({'message': `There is no camera with id - ${cameraId}`})
+    })
 })
 
 

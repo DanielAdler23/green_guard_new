@@ -13,7 +13,7 @@ var date = new Date()
 
 router.use(bodyParser.json({limit: '5mb'}))
 router.use(bodyParser.urlencoded({limit: '5mb', extended: true }))
-router.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, store: new MongoStore({url: mongoUrl})}))
+router.use(session({secret: 'greenguard', resave: false, saveUninitialized: true, expires: new Date(Date.now() + 1800000) , store: new MongoStore({url: mongoUrl})}))
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Content-Type', 'application/json')
