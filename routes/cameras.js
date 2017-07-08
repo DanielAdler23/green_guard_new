@@ -89,7 +89,8 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
                         'ip': req.body.ip,
                         'port': req.body.port,
                         'added': Date.now(),
-                        'picture': url
+                        'picture': url,
+                        'status': false
                     }
 
                     db.get().collection('cameras').insertOne(newCamera, (err, result) => {

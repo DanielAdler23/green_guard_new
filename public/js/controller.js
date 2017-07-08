@@ -53,6 +53,7 @@ function clear_canvas(){
     complete = false;
     document.getElementById('coordinates').value = '';
     start(true);
+    rerender()
 }
 
 function draw(end){
@@ -167,6 +168,13 @@ function start(with_draw) {
     if(with_draw == true){
         draw(false);
     }
+}
+
+function rerender() {
+    var img = new Image();
+    img.src = $.cookie('cameraPicture')
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 }
 
 if (location.href.split("/").slice(-1) == "cameraPage.html"){
