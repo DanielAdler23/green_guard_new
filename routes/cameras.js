@@ -112,6 +112,30 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
 })
 
 
+router.get('/deleteCamera/:userId/:cameraId', (req, res) => {
+    var userId = req.params.userId
+    var cameraId = req.params.cameraId
+    var objectId = new ObjectID(userId)
+
+    db.get().collection('cameras').remove({'id': cameraId}, (err, doc) => {
+        if(err) {
+            logger.error({error: err})
+            return res.status(404).send({error: err})
+        } else
+
+        db.get().collection('users').findOneAndUpdate({'_id': objectId}, {$pop: { cameras: cameraId }}, (err, user) => {
+            if(err) {
+                logger.error({error: err})
+                return res.status(404).send({error: err})
+            } else {
+                logger.info(`deleted camera - ${cameraId} from user - ${userId}`)
+                return res.status(200).send(user)
+            }
+        })
+    })
+})
+
+
 router.get('/getCamera/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
     if(!cameraId) return res.status(502).send({message: 'Login required'})

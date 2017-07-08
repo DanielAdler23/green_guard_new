@@ -323,11 +323,11 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                     if(camera.status == 1) {
                         $('table').append(
                             '<tr class="cameraTD">' +
-                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
+                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click="deleteCamera('+camera.id+')"></i></td>'+
                             '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                             '<td id="cameraId">' + camera.id + '</td>' +
-                            '<td id="cameraName"></td>' +
-                            '<td id="rename"><input></td>' +
+                            '<td id="cameraName">' + camera.name + '</td>' +
+                            '<td id="rename"><textarea rows="1" cols="20"></textarea></td>' +
                             '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
                             '<td id="LifePicture"><button class="btn" ng-click="getLivePicture('+camera.id+')">Get Picture</button></td>'+
                             '<td><button id="statusOn" class="btn" ng-click="stopCamera('+camera.id+')">On</button></td>'+
@@ -336,11 +336,11 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                     } else {
                         $('table').append(
                             '<tr class="cameraTD">' +
-                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
+                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click="deleteCamera('+camera.id+')"></i></td>'+
                             '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                             '<td id="cameraId">' + camera.id + '</td>' +
-                            '<td id="cameraName"></td>' +
-                            '<td id="rename"><input></td>' +
+                            '<td id="cameraName">' + camera.name + '</td>' +
+                            '<td id="rename"><textarea rows="1" cols="20"></textarea></td>' +
                             '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
                             '<td id="LifePicture"><button class="btn" ng-click="getLivePicture('+camera.id+')">Get Picture</button></td>'+
                             '<td><button id="statusOff" class="btn" ng-click="startCamera('+camera.id+')">Off</button></td>'+
@@ -369,7 +369,7 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                 console.log(data.value.id)
                 $('table').append(
                     '<tr>' +
-                        '<td id="trash"><i class="fa fa-trash-o" ng-click=""></i></td>' +
+                        '<td id="trash"><i class="fa fa-trash-o" ng-click="deleteCamera('+data.value.id+')"></i></td>' +
                         '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                         '<td id="cameraId">' + data.value.id + '</td>' +
                         '<td id="cameraName"></td>' +
@@ -383,6 +383,20 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                 $compile(table)($scope)
             }
         });
+    }
+
+    $scope.deleteCamera = function(cameraId) {
+        const userId = $cookies.get("userId")
+
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/cameras/deleteCamera/${userId}/${cameraId}`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+                $scope.initUserCameras()
+            }
+        })
     }
 
     $scope.defineArea = function (cameraId) {
@@ -523,11 +537,10 @@ green.controller('cameraPage', function($scope, $cookies) {
                 "polygon": perimeter
             },
             function(data, status){
-                if(status == 200){
+                if(status == 200 || status == 605)
                     window.location.href ="cameras.html"
-                }
                 if(status == 400)
-                alert("Data: " + data.message + "\nStatus: " + status);
+                    alert("Data: " + data.message + "\nStatus: " + status);
             })
 
 
@@ -551,7 +564,7 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
             cache: false,
             success: function(data) {
                 for (var alert of data) {
-                    var date = new Date(parseInt(alert.timestamp) * 1000).toUTCString().replace(/T|Z|.000/gi, " ")
+                    var date = new Date(parseInt(alert.timestamp) * 1000 + 10800000).toUTCString().replace(/GMT|Z|.000/gi, " ")
                     $('table').append(
                         '<tr>' +
                         `<td id="cameraId">${alert.cameraId}</td>` +

@@ -1,8 +1,20 @@
 const nodemailer = require('nodemailer')
 var imgur = require('imgur')
+var Nexmo = require('nexmo')
+var axios = require('axios')
 var clientId = imgur.getClientId()
 var logger = require('./logger')
 imgur.setCredentials('greenguardpro@gmail.com', 'nodGreen1', clientId)
+
+
+var data = JSON.stringify({
+    api_key: '0c96ce91',
+    api_secret: 'a364793a74b0f0b7',
+    to: '972548088773',
+    from: 'Green Guard',
+    text: 'You have a new notification. Please check your email for further information'
+});
+
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
@@ -24,6 +36,17 @@ function sendMail(recipient, photoUrl) {
         text: 'ALERT ALERT ALERT',
         html: `<img src=${photoUrl}> </img>`
     }
+
+    axios.post('https://rest.nexmo.com:443/sms/json', data, {headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data)
+    }})
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
