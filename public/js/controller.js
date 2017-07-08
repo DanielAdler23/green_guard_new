@@ -1,85 +1,179 @@
 
 const environment = 'http://localhost:3000'
 //const environment = 'https://green-guard.herokuapp.com'
-var init = true
-var polygon = []
+// var init = true
+
+
+
+
+
+
+/*****************************************************************************************************************************/
+var perimeter = []
+var complete = false;
 var canvas = document.getElementById('canvas')
-var ctx
-var img
+var ctx;
+
+function line_intersects(p0, p1, p2, p3) {
+    var s1_x, s1_y, s2_x, s2_y;
+    s1_x = p1['x'] - p0['x'];
+    s1_y = p1['y'] - p0['y'];
+    s2_x = p3['x'] - p2['x'];
+    s2_y = p3['y'] - p2['y'];
+
+    var s, t;
+    s = (-s1_y * (p0['x'] - p2['x']) + s1_x * (p0['y'] - p2['y'])) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0['y'] - p2['y']) - s2_y * (p0['x'] - p2['x'])) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+    {
+        // Collision detected
+        return true;
+    }
+    return false; // No collision
+}
+
+function point(x, y){
+    ctx.fillStyle="white";
+    ctx.strokeStyle = "white";
+    ctx.fillRect(x-2,y-2,4,4);
+    ctx.moveTo(x,y);
+}
+
+function undo(){
+    ctx = undefined;
+    perimeter.pop();
+    complete = false;
+    start(true);
+}
+
+function clear_canvas(){
+    ctx = undefined;
+    perimeter = []
+    complete = false;
+    document.getElementById('coordinates').value = '';
+    start(true);
+}
+
+function draw(end){
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "white";
+    ctx.lineCap = "square";
+    ctx.beginPath();
+
+    for(var i=0; i<perimeter.length; i++){
+        if(i==0){
+            ctx.moveTo(perimeter[i]['x'],perimeter[i]['y']);
+            end || point(perimeter[i]['x'],perimeter[i]['y']);
+        } else {
+            ctx.lineTo(perimeter[i]['x'],perimeter[i]['y']);
+            end || point(perimeter[i]['x'],perimeter[i]['y']);
+        }
+    }
+    if(end){
+        ctx.lineTo(perimeter[0]['x'],perimeter[0]['y']);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fill();
+        ctx.strokeStyle = 'blue';
+        complete = true;
+    }
+    ctx.stroke();
+
+    // print coordinates
+    if(perimeter.length == 0){
+        document.getElementById('coordinates').value = '';
+    } else {
+        document.getElementById('coordinates').value = JSON.stringify(perimeter);
+    }
+}
+
+function check_intersect(x,y){
+    if(perimeter.length < 4){
+        return false;
+    }
+    var p0 = []
+    var p1 = []
+    var p2 = []
+    var p3 = []
+
+    p2['x'] = perimeter[perimeter.length-1]['x'];
+    p2['y'] = perimeter[perimeter.length-1]['y'];
+    p3['x'] = x;
+    p3['y'] = y;
+
+    for(var i=0; i<perimeter.length-1; i++){
+        p0['x'] = perimeter[i]['x'];
+        p0['y'] = perimeter[i]['y'];
+        p1['x'] = perimeter[i+1]['x'];
+        p1['y'] = perimeter[i+1]['y'];
+        if(p1['x'] == p2['x'] && p1['y'] == p2['y']){ continue; }
+        if(p0['x'] == p3['x'] && p0['y'] == p3['y']){ continue; }
+        if(line_intersects(p0,p1,p2,p3)==true){
+            return true;
+        }
+    }
+    return false;
+}
+
+function point_it(event) {
+    if(complete){
+        alert('Polygon already created');
+        return false;
+    }
+    var rect, x, y;
+
+    if(event.ctrlKey || event.which === 3 || event.button === 2){
+        if(perimeter.length==2){
+            alert('You need at least three points for a polygon');
+            return false;
+        }
+        x = perimeter[0]['x'];
+        y = perimeter[0]['y'];
+        if(check_intersect(x,y)){
+            alert('The line you are drowing intersect another line');
+            return false;
+        }
+        draw(true);
+        alert('Polygon closed');
+        event.preventDefault();
+        return false;
+    } else {
+        rect = canvas.getBoundingClientRect();
+        x = event.clientX - rect.left;
+        y = event.clientY - rect.top;
+        if (perimeter.length>0 && x == perimeter[perimeter.length-1]['x'] && y == perimeter[perimeter.length-1]['y']){
+            // same point - double click
+            return false;
+        }
+        if(check_intersect(x,y)){
+            alert('The line you are drowing intersect another line');
+            return false;
+        }
+        perimeter.push({'x':x,'y':y});
+        draw(false);
+        return false;
+    }
+}
+
+function start(with_draw) {
+    var img = new Image();
+    var imageSrc = $.cookie('cameraPicture')
+    img.src = imageSrc
+    canvas.setAttribute('data-imgsrc', imageSrc)
+
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    if(with_draw == true){
+        draw(false);
+    }
+}
 
 if (location.href.split("/").slice(-1) == "cameraPage.html"){
-    window.onload = () => {
-        ctx = canvas.getContext('2d')
-        img=document.getElementById("myImage")
-        ctx.drawImage(img,0 ,0)
-    }
-
-
-    // Push point to polygon array
-    canvas.addEventListener('click', function(event) {
-        var x = parseInt(event.clientX - 288)
-        var y = parseInt(event.clientY - 140)
-        console.log("x - " + x + "\n")
-        console.log("y - " + y + "\n")
-        polygon.push({"x": x, "y": y})
-
-        // Line & circle color and width
-        ctx.strokeStyle = '#00CC99'
-        ctx.lineWidth = 3
-        ctx.lineJoin = 'round'
-        ctx.lineCap = 'round'
-        ctx.fillStyle = 'blue'
-
-        // Clears polygons's closing line
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(img,0 ,0)
-
-
-        for(var i=0 ; i< polygon.length; i++) {
-            if(i == 0) {
-                ctx.beginPath()
-                ctx.moveTo(polygon[i].x, polygon[i].y)
-                ctx.arc(polygon[i].x, polygon[i].y, 2, 0, 2 * Math.PI)
-                ctx.stroke()
-            } else {
-                // Draw circle on click area
-                ctx.beginPath()
-                ctx.moveTo(polygon[i].x, polygon[i].y)
-                ctx.arc(polygon[i].x, polygon[i].y, 2, 0, 2 * Math.PI)
-                ctx.stroke()
-
-                // Draw line from last point to current point
-                ctx.beginPath()
-                ctx.moveTo(polygon[i-1].x, polygon[i-1].y)
-                ctx.lineTo(polygon[i].x, polygon[i].y)
-                ctx.stroke()
-            }
-        }
-
-        // Close polygon
-        ctx.beginPath()
-        ctx.moveTo(polygon[polygon.length-1].x, polygon[polygon.length-1].y)
-        ctx.lineTo(polygon[0].x, polygon[0].y)
-        ctx.stroke()
-    })
-
-    //
-    // function printPolygon() {
-    //
-    //     $.post("http://localhost:3000/api/cameras/setRule/fa249a21b85c46c8aeef59a46ab2a182", {
-    //             "inOut": 0,
-    //             "polygon": JSON.stringify(polygon)
-    //         },
-    //         function(data, status){
-    //             alert("Data: " + data.message + "\nStatus: " + status);
-    //         })
-    //
-    //
-    //     for(var i=0; i < polygon.length; i++)
-    //         console.log("Point " + i + " - X: " + polygon[i].x + " Y: " + polygon[i].y)
-    // }
-
+    start()
 }
+/*****************************************************************************************************************************/
+
 
 
 var green = angular.module('green', ['ngCookies', 'ngFlash', 'ngMaterial']);
@@ -126,6 +220,26 @@ green.controller('userCtrl', ['$scope', '$cookies', 'Flash', function($scope, $c
     }
 }])
 
+green.controller('hamburger', function($scope, $cookies) {
+
+    $scope.logout = function() {
+        console.log('controller - logout')
+
+        var cookies = $cookies.getAll()
+        angular.forEach(cookies, function (v, k) {
+            $cookies.remove(k)
+        })
+
+        $.ajax({
+            type: "GET",
+            url: `${environment}/api/users/logout`,
+            cache: false,
+            success: function(data) {
+                console.log(data)
+            }
+        })
+    }
+})
 
 
 green.controller('getCameras',['$scope','$cookies','$compile', function($scope,$cookies,$compile) {
@@ -312,7 +426,7 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
     }
 });
 
-green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scope, $cookies) {
+green.controller('cameraPage', function($scope, $cookies) {
 
     $scope.initializePage = function() {
         console.log('Initialize')
@@ -357,12 +471,12 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
     $scope.setRule = function(){
         var cameraId = $cookies.get("cameraId")
         var cameraPicture = $cookies.get("cameraPicture")
-        console.log($scope.inOut)
-        console.log(polygon)
+        // console.log($scope.inOut)
+        console.log(perimeter)
 
         $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
                 "inOut": $scope.inOut,
-                "polygon": polygon
+                "polygon": perimeter
             },
             function(data, status){
                 if(status == 200){
@@ -373,11 +487,11 @@ green.controller('cameraPage', ['$scope', '$cookies', '$compile', function($scop
             })
 
 
-        for(var i=0; i < polygon.length; i++)
-            console.log("Point " + i + " - X: " + polygon[i].x + " Y: " + polygon[i].y)
+        for(var i=0; i < perimeter.length; i++)
+            console.log("Point " + i + " - X: " + perimeter[i].x + " Y: " + perimeter[i].y)
     }
 
-}])
+})
 
 
 

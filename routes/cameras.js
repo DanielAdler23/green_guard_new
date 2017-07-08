@@ -113,6 +113,7 @@ router.post('/newCamera', upload.array('file', 12), (req, res) => {
 
 router.get('/getCamera/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     logger.info(`Getting camera - ${cameraId}`)
     // var objectId = new ObjectID(cameraId)
     var cameras = db.get().collection('cameras')
@@ -127,6 +128,7 @@ router.get('/getCamera/:cameraId', (req, res) => {
 
 router.get('/getImage/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     logger.info(`Getting picture of camera - ${cameraId}`)
     // var objectId = new ObjectID(cameraId)
     var cameras = db.get().collection('cameras')
@@ -140,6 +142,7 @@ router.get('/getImage/:cameraId', (req, res) => {
 
 router.get('/getLiveImage/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     var cameras = db.get().collection('cameras')
     cameras.findOne({'id': cameraId}, (err, doc) => {
         if (err)
@@ -160,6 +163,7 @@ router.get('/getLiveImage/:cameraId', (req, res) => {
 
 router.post('/setRule/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     logger.info(`Setting camera's rule for camera ${cameraId}`)
     // var objectId = new ObjectID(cameraId)
 
@@ -188,6 +192,7 @@ router.post('/setRule/:cameraId', (req, res) => {
 
 router.get('/startCamera/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     var cameras = db.get().collection('cameras')
 
     logger.info(`Starting camera - ${cameraId}`)
@@ -209,6 +214,7 @@ router.get('/startCamera/:cameraId', (req, res) => {
 
 router.post('/setName/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     var cameraName = req.body.cameraName
     // var cameras = db.get().collection('cameras')
 
@@ -245,6 +251,7 @@ router.get('/cameraStatus/:cameraId/:status', (req, res) => {
 
 router.post('/cameraAlert/:cameraId', upload.array('file', 12), (req, res) => {
     var cameraId = req.params.cameraId
+    if(!cameraId) return res.status(502).send({message: 'Login required'})
     logger.warn(`## Got alert from camera - ${cameraId} ##`)
 
     // if(!req.files[0].buffer)
@@ -291,6 +298,7 @@ router.post('/cameraAlert/:cameraId', upload.array('file', 12), (req, res) => {
 
 router.post('/cameraAlertPhoto/:alertId', upload.array('file', 12), (req, res) => {
     var alertId = req.params.alertId
+    if(!alertId) return res.status(502).send({message: 'Login required'})
     logger.info(`Got new photo from alert - ${alertId}`)
 
     // var photoUrl = utils.savePhoto(req.files[0].buffer)
@@ -317,6 +325,7 @@ router.post('/cameraAlertPhoto/:alertId', upload.array('file', 12), (req, res) =
 
 router.get('/getAlert/:alertId', (req, res) => {
     var alertId = req.params.alertId
+    if(!alertId) return res.status(502).send({message: 'Login required'})
     var alerts = db.get().collection('alerts')
     alerts.findOne({'alertId': alertId}, (err, doc) => {
         err ? res.status(400).send({error: err}) : res.status(200).send({doc})

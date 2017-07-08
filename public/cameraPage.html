@@ -20,7 +20,7 @@
     <link type="text/css" rel="stylesheet" href="./css/angular-flash.min.css" />
 </head>
 
-<body ng-app="green">
+<body id="pages-body" ng-app="green" onload="clear_canvas()">
 
 <div id="wrapper" ng-controller ="cameraPage">
 
@@ -83,32 +83,37 @@
         </div>
     </nav>
     <div id="page-wrapper">
+        <div style="float:left">
+            <canvas id="canvas" width="640" height="480" style="cursor:crosshair" data-imgsrc="image.jpg" onmousedown="point_it(event)" oncontextmenu="return false;">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+        </div>
+        <div style="float:left; margin-left:20px;">
+            <div>
+                <button onclick="undo()">Undo</button>
+                <button onclick="clear_canvas()">Clear</button>
+                <p>Press <strong>Left Click</strong> to draw a point.</p>
+                <p><strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</p>
+            </div>
+            <div>
+                <p><strong>Coordinates:</strong></p>
+                <textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-lg-12" ng-init="initializePage()" >
-                <div>
-                    <h1 class="page-header">{{cameraTitle}}</h1>
-                    <div id="imgHolder" >
-                        <img id="myImage" ng-click="showCoords(event)">
-                        <canvas id= "canvas" width="640" height="480"> </canvas>
-                    </div>
-                </div>
-                <div>
-                    <form>
-                        <label>
-                            <input type="radio" ng-model="inOut" value="0">in
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="inOut" value="1">out
-                        </label>
-                        <label>
-                            <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No
-                        </label>
-                    </form>
-
-                    <button ng-click= "setRule()"> setRule </button><br>
-
-                </div>
-
+            <div>
+                <form>
+                    <label>
+                        <input type="radio" ng-model="inOut" value="0">in
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="inOut" value="1">out
+                    </label>
+                    <label>
+                        <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No
+                    </label>
+                </form>
+                <button ng-click= "setRule()"> setRule </button><br>
             </div>
         </div>
     </div>

@@ -61,6 +61,16 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if(err)
+            logger.error(err)
+        else {
+            logger.info('deleted session')
+        }
+    })
+})
+
 
 router.get('/dashboard', (req, res) => {
     if(!req.session.user)
@@ -119,6 +129,7 @@ router.post('/addNewUser', (req, res) => {
 
 router.post('/attachCameraToUser/:userId', (req,res) => {
     var userId = req.params.userId
+    if(!userId) return res.status(502).send({message: 'Login required'})
     var cameraId = req.body.cameraId
     var objectId = new ObjectID(userId)
 
@@ -177,6 +188,7 @@ router.get('/getUsersAlerts/:userId', (req, res) => {
     logger.info("Getting user's alerts")
 
     var userId = req.params.userId
+    if(!userId) return res.status(502).send({message: 'Login required'})
     var objectId = new ObjectID(userId)
 
     db.get().collection('users').findOne({'_id': objectId}, (err, user) => {
