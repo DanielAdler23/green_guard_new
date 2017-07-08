@@ -138,6 +138,25 @@ router.get('/getImage/:cameraId', (req, res) => {
     })
 })
 
+router.get('/getLiveImage/:cameraId', (req, res) => {
+    var cameraId = req.params.cameraId
+    var cameras = db.get().collection('cameras')
+    cameras.findOne({'id': cameraId}, (err, doc) => {
+        if (err)
+            res.status(400).send({error: err})
+        else if (doc) {
+            var cameraUrl = `http://${doc.ip}:${doc.port}/getLivePicture`
+            axios.get(cameraUrl, axiosConfig)
+                .then(response => res.status(200).send({'message': response.data.pic}))
+                .catch(err => {
+                    logger.error(err)
+                    return res.status(404).send({message: 'camera not online', err: err.message})
+                })
+        } else
+            res.status(404).send({message: `No camera with id - ${cameraId}`})
+    })
+})
+
 
 router.post('/setRule/:cameraId', (req, res) => {
     var cameraId = req.params.cameraId
