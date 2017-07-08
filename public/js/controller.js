@@ -316,33 +316,33 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
             url: `${environment}/api/users/getUsersCameras/${userId}`,
             cache: false,
             success: function(cameras) {
-                $('table').empty()
+                $('.cameraTD').remove()
                 console.log(cameras)
                 for (var camera of cameras) {
                     console.log(camera.id)
                     if(camera.status == 1) {
                         $('table').append(
-                            '<tr>' +
+                            '<tr class="cameraTD">' +
                             '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
                             '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                             '<td id="cameraId">' + camera.id + '</td>' +
                             '<td id="cameraName"></td>' +
                             '<td id="rename"><input></td>' +
                             '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
-                            '<td id="LifePicture"><button class="btn" ng-click="getLifePicture('+camera.id+')">Get Picture</button></td>'+
+                            '<td id="LifePicture"><button class="btn" ng-click="getLivePicture('+camera.id+')">Get Picture</button></td>'+
                             '<td><button id="statusOn" class="btn" ng-click="stopCamera('+camera.id+')">On</button></td>'+
                             '</tr>'
                         )
                     } else {
                         $('table').append(
-                            '<tr>' +
+                            '<tr class="cameraTD">' +
                             '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
                             '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
                             '<td id="cameraId">' + camera.id + '</td>' +
                             '<td id="cameraName"></td>' +
                             '<td id="rename"><input></td>' +
                             '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
-                            '<td id="LifePicture"><button class="btn" ng-click="getLifePicture('+camera.id+')">Get Picture</button></td>'+
+                            '<td id="LifePicture"><button class="btn" ng-click="getLivePicture('+camera.id+')">Get Picture</button></td>'+
                             '<td><button id="statusOff" class="btn" ng-click="startCamera('+camera.id+')">Off</button></td>'+
                             '</tr>'
                         )
@@ -551,7 +551,7 @@ green.controller('notifications', function($scope, $cookies, $compile, $mdDialog
             cache: false,
             success: function(data) {
                 for (var alert of data) {
-                    var date = new Date(parseInt(alert.timestamp) * 1000).toISOString().replace(/T|Z|.000/gi, " ")
+                    var date = new Date(parseInt(alert.timestamp) * 1000).toUTCString().replace(/T|Z|.000/gi, " ")
                     $('table').append(
                         '<tr>' +
                         `<td id="cameraId">${alert.cameraId}</td>` +
