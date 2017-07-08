@@ -1,5 +1,5 @@
 
-const environment = 'http://localhost:3000'
+const environment = 'http://192.168.1.73:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 // var init = true
 
@@ -368,15 +368,15 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
             success: function(data) {
                 console.log(data.value.id)
                 $('table').append(
-                    '<tr>' +
-                        '<td id="trash"><i class="fa fa-trash-o" ng-click=""></i></td>' +
-                        '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
-                        '<td id="cameraId">' + data.value.id + '</td>' +
-                        '<td id="cameraName"></td>' +
-                        '<td id="rename"><input></td>' +
-                        '<td id="define area"><button class="btn" ng-click="defineArea('+data.value.id+')">set area</button></td>' +
-                        '<td id="LifePicture"><button class="btn" id="start" ng-click="getLifePicture('+data.value.id+')">Get Picture</button></td>'+
-                        '<td id="status"><button class="btn" ng-click="startCamera('+data.value.id+')">Active</button></td>' +
+                    '<tr class="cameraTD">' +
+                    '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
+                    '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                    '<td id="cameraId">' + $scope.add + '</td>' +
+                    '<td id="cameraName"></td>' +
+                    '<td id="rename"><input></td>' +
+                    '<td id="define area"><button class="btn" id=' + $scope.add + ' ng-click="defineArea('+$scope.add+')">set area</button></td>' +
+                    '<td id="LifePicture"><button class="btn" ng-click="getLivePicture('+$scope.add+')">Get Picture</button></td>'+
+                    '<td><button id="statusOff" class="btn" ng-click="startCamera('+$scope.add+')">Off</button></td>'+
                     '</tr>'
                 )
                 var table = document.querySelector('#table')
