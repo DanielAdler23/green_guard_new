@@ -311,16 +311,14 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                 console.log(camera.id)
                     $('table').append(
                         '<tr>' +
-                        '<td id="checkbox"><input type="checkbox"></td>' +
-                        '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
-                        '<td id="cameraName"></td>' +
-                        '<td id="cameraId">' + camera.id + '</td>' +
-                        '<td id="rename"><input></td>' +
-                        '<td id="define area"><button id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
-                        // '<td id="LifePicture"><button ng-click="getLivePicture('+camera.id+')">Get Picture</button></td>'+
-                        `<td><button class="btn" id="start" data-ng-click='getLivePicture(${camera.id})'>Get Picture</button></td>` +
-                        '<td id="status"><button ng-click="startCamera('+camera.id+')">Active</button></td>' +
-                        '<td id="save" style="padding-left: 20px;"><button>save</button></td>' +
+                            '<td id="icon"><i id="trash" class="fa fa-trash-o" ng-click=""></i></td>'+
+                            '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                            '<td id="cameraId">' + camera.id + '</td>' +
+                            '<td id="cameraName"></td>' +
+                            '<td id="rename"><input></td>' +
+                            '<td id="define area"><button class="btn" id=' + camera.id + ' ng-click="defineArea('+camera.id+')">set area</button></td>' +
+                            '<td id="LifePicture"><button class="btn" ng-click="getLifePicture('+camera.id+')">Get Picture</button></td>'+
+                            '<td id="status"><button class="btn" ng-click="startCamera('+camera.id+')">Active</button></td>'+
                         '</tr>'
                     )}
                 var table = document.querySelector('#table')
@@ -344,15 +342,14 @@ green.controller('cameras', function($scope, $cookies, $compile, $mdDialog) {
                 console.log(data.value.id)
                 $('table').append(
                     '<tr>' +
-                    '<td id="checkbox"><input type="checkbox"></td>' +
-                    '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
-                    '<td id="cameraName"></td>' +
-                    '<td id="cameraId">' + data.value.id + '</td>' +
-                    '<td id="rename"><input></td>' +
-                    '<td id="define area"><button id=' + data.value.id + ' ng-click="defineArea('+data.value.id+')">set area</button></td>' +
-                    '<td id="LivePicture"><button class="btn" id="start" ng-click="getLifePicture('+data.value.id+')">Get Picture</button></td>'+
-                    '<td id="status"><button ng-click="startCamera('+data.value.id+')">Active</button></td>' +
-                    '<td id="save"><button>save</button></td>' +
+                        '<td id="trash"><i class="fa fa-trash-o" ng-click=""></i></td>' +
+                        '<td id="icon"><i class="fa fa-video-camera fa-fw"></i></td>' +
+                        '<td id="cameraId">' + data.value.id + '</td>' +
+                        '<td id="cameraName"></td>' +
+                        '<td id="rename"><input></td>' +
+                        '<td id="define area"><button class="btn" ng-click="defineArea('+data.value.id+')">set area</button></td>' +
+                        '<td id="LifePicture"><button class="btn" id="start" ng-click="getLifePicture('+data.value.id+')">Get Picture</button></td>'+
+                        '<td id="status"><button class="btn" ng-click="startCamera('+data.value.id+')">Active</button></td>' +
                     '</tr>'
                 )
                 var table = document.querySelector('#table')
