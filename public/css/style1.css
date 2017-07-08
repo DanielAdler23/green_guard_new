@@ -220,7 +220,7 @@ input[type='submit'] {
 #page-wrapper {
     padding: 0 15px;
     min-height: 768px;
-    background-color: white;
+    background-color: #f5f5f5;;
 }
 @media (min-width: 768px) {
     #page-wrapper {
@@ -584,6 +584,10 @@ table.dataTable thead .sorting:after {
     width: 25%;
 }
 
+.fa-trash-o:before{
+    padding-left:18px;
+}
+
 
 /*polygon settings */
 #myImage{
@@ -596,7 +600,9 @@ table.dataTable thead .sorting:after {
 
 
 #table{
+    background-color: white ;
     border-collapse: collapse;
+    border-color: grey;
     width: 100%;
 }
 td,th{
