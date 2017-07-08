@@ -590,6 +590,34 @@ table.dataTable thead .sorting:after {
 
 
 /*polygon settings */
+#setPolygon{
+    margin-top: 20px;
+    margin-left: 13px;
+    padding-left:20px;
+    padding-top:20px;
+    float:left;
+    border: 1px solid #dddddd;
+    width: 640px;
+    min-height:95px; ;
+    background-color: white;
+
+}
+#myCanvas{
+    float:left;
+    margin-top: 20px;
+}
+
+#canvasController{
+    border: 1px solid #dddddd;
+    width: 640px;
+    background-color: white;
+    float:left;
+    margin-top: 20px;
+    padding-left:20px;
+    padding-top:20px;
+}
+
+
 #myImage{
     display: none;
 }

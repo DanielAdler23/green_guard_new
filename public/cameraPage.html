@@ -62,16 +62,6 @@
                         <a href ="cameras.html"><i class="fa fa-video-camera fa-fw"></i> Cameras</a>
                     </li>
                     <li>
-                        <a href ng-init="initializePage()"><i class="fa fa-bar-chart-o fa-fw"></i> Cameras<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li ng-repeat="camera in cameras">
-                                <a href="" ng-click ="getcamera(camera.id)">{{camera.id}}</a>
-                                <!--// need to change the camara.id to camera name after adding name in the server.-->
-
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
                         <a href="notifications.html"><i class="fa fa-table fa-fw"></i> Notifications</a>
                     </li>
                     <li>
@@ -83,37 +73,38 @@
         </div>
     </nav>
     <div id="page-wrapper">
-        <div style="float:left">
-            <canvas id="canvas" width="640" height="480" style="cursor:crosshair" data-imgsrc="image.jpg" onmousedown="point_it(event)" oncontextmenu="return false;">
+        <div id="myCanvas">
+            <canvas style="float:left" id="canvas" width="640" height="480" style="cursor:crosshair" data-imgsrc="image.jpg" onmousedown="point_it(event)" oncontextmenu="return false;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
-        </div>
-        <div style="float:left; margin-left:20px;">
-            <div>
-                <button onclick="undo()">Undo</button>
-                <button onclick="clear_canvas()">Clear</button>
-                <p>Press <strong>Left Click</strong> to draw a point.</p>
-                <p><strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</p>
+            <div id="canvasController">
+                <div>
+                    <button class="btn" onclick="undo()">Undo</button>
+                    <button class="btn" onclick="clear_canvas()">Clear</button>
+                    <p>Press <strong>Left Click</strong> to draw a point.</p>
+                    <p><strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</p>
+                </div>
+                <div >
+                    <p><strong>Coordinates:</strong></p>
+                    <textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
+                </div>
             </div>
-            <div>
-                <p><strong>Coordinates:</strong></p>
-                <textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
-            </div>
         </div>
+
         <div class="row">
-            <div>
+            <div id="setPolygon">
                 <form>
                     <label>
-                        <input type="radio" ng-model="inOut" value="0">in
-                    </label>
+                        <input type="radio" ng-model="inOut" value="0">Detect in the polygon
+                    </label><br>
                     <label>
-                        <input type="radio" ng-model="inOut" value="1">out
-                    </label>
+                        <input type="radio" ng-model="inOut" value="1">Detect out of the polygon
+                    </label><br>
                     <label>
-                        <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No
+                        <input type="radio" ng-model="inOut" ng-checked="true" value="Null">No polygon
                     </label>
                 </form>
-                <button ng-click= "setRule()"> setRule </button><br>
+                <button class="btn" ng-click= "setRule()"> setRule </button><br>
             </div>
         </div>
     </div>
