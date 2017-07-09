@@ -49,7 +49,7 @@ router.post('/login', (req, res) => {
 
             Promise.all(requests)
                 .then(cameras => {
-                    var data = {'redirect': 'home.html', 'userId': objectId.toString(), 'cameras': cameras}
+                    var data = {'redirect': 'cameras.html', 'userId': objectId.toString(), 'cameras': cameras}
                     res.header('Content-Length', data.length)
                     res.send(JSON.stringify(data))
                     return res.end()

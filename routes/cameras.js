@@ -172,7 +172,10 @@ router.get('/getLiveImage/:cameraId', (req, res) => {
     cameras.findOne({'id': cameraId}, (err, doc) => {
         if (err)
             res.status(400).send({error: err})
-        else if (doc) {
+        else if (doc.status == 0 ){
+                res.status(503).send({message:'camera not no online'})
+        }
+        else if (doc.status == 1) {
             var cameraUrl = `http://${doc.ip}:${doc.port}/getLivePicture`
             axios.get(cameraUrl, axiosConfig)
                 .then(response => res.status(200).send({'message': response.data.pic}))

@@ -1,5 +1,5 @@
 
-const environment = 'http://192.168.1.73:3000'
+const environment = 'http://172.20.10.4:3000'
 //const environment = 'https://green-guard.herokuapp.com'
 // var init = true
 
@@ -530,19 +530,19 @@ green.controller('cameraPage', function($scope, $cookies) {
         var cameraId = $cookies.get("cameraId")
         var cameraPicture = $cookies.get("cameraPicture")
         // console.log($scope.inOut)
-        console.log(perimeter)
+        console.log(perimeter);
 
         $.post(`${environment}/api/cameras/setRule/${cameraId}`, {
                 "inOut": $scope.inOut,
                 "polygon": perimeter
             },
             function(data, status){
-                if(status == 200 || status == 605)
+                console.log(status)
+                if(status == 'success' || status == 605)
                     window.location.href ="cameras.html"
                 if(status == 400)
                     alert("Data: " + data.message + "\nStatus: " + status);
             })
-
 
         for(var i=0; i < perimeter.length; i++)
             console.log("Point " + i + " - X: " + perimeter[i].x + " Y: " + perimeter[i].y)
