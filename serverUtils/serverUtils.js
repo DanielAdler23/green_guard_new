@@ -8,9 +8,9 @@ imgur.setCredentials('greenguardpro@gmail.com', 'nodGreen1', clientId)
 
 
 var data = JSON.stringify({
-    api_key: '0c96ce91',
-    api_secret: 'a364793a74b0f0b7',
-    to: '972548088773',
+    api_key: '***',
+    api_secret: '***',
+    to: '***',
     from: 'Green Guard',
     text: 'You have a new notification. Please check your email for further information'
 });
